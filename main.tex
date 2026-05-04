@@ -6,6 +6,7 @@
 \newtheorem{innercustomthm}{Theorem}
 \newtheorem{innercustomlem}{Lemma}
 \newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
 \newtheorem{innercustomdef}{Definition}
 \newtheorem*{definition*}{Definition}
 \newtheorem*{thm*}{Theorem}
@@ -41,6 +42,7 @@ This definition is equivalent to saying that a tour is a Eulerian multigraph tha
 A given multiset of edges $T_0$ is a quasi-tour if and only if it is Eulerian.
 
 \section{Starting point}
+For the reduction, we will start from a common hard to approximate problem: 
 \begin{definition}[MAX-E3-LIN-2]
     The \textbf{MAX-E3-LIN-2} problem is defined as follows:
     \begin{itemize}
@@ -52,4 +54,37 @@ A given multiset of edges $T_0$ is a quasi-tour if and only if it is Eulerian.
         \item \textbf{Objective:} Find an assignment to the variables that maximizes the number of satisfied equations.
     \end{itemize}
 \end{definition}
+\begin{theorem}
+For every $\varepsilon \in (0,\frac{1}{4}$) and a sufficiently large integer $k\geq k(\varepsilon)$, the following partial decision subproblem $Q(\varepsilon, k)$ of MAX-E3-LIN-2 is NP-hard:
+given an instance of MAX-E3-LIN-2 with $m$ equations and exactly $k$ occuurrences of each variable, to decide if at least $(1 + \varepsilon)m$ equations can be satisfied or if at most $(\frac{1}{2} - \varepsilon)m$ equations can be satisfied by an optimal assignment.
+\end{theorem}
+To prove some  inapproximability results, it is more convenient for reductions if all equations have the same right hand side. The results obtained in such case can be enforced by flipping some occurrences of variables ($\tilde{x}= 1-x$). 
+With that idea in mind, we can define a subproblem of $Q(\varepsilon, k)$. 
+
+\begin{definition}
+    For $b\in \{0,1\}$, we define $Q_b(\varepsilon, k)$ as the following partial decision problem:
+    \begin{itemize}
+        \item \textbf{Instance:} An instance of MAX-E3-LIN-2 with $m$ equations of the form $x_{i_1} + x_{i_2} + x_{i_3} = b$, each variable occurring exactly $k$ times negated and $k$ times unnegated. 
+        \item \textbf{Objective:} Decide if at least $(1 + \varepsilon)m$ or at most $(\frac{1}{2} - \varepsilon)m$ equations can be satisfied by an optimal assignment.
+    \end{itemize}
+\end{definition}
+To continue with the reduction, we will extend the NP-hardness results to a low occurrence version of $w$-MAX-E3-LIN-2, a weighted system of linear equations over $\mathbb{Z}_2$ with either 2 or 3 variables.
+We call this a hybrid system of linear equations. Similarly, the task of the $w$-MAX-E3-LIN-2 problem is to find an assignment that maximizes the total weight of satisfied equations.
+
+\section{Reductions to $w$-MAX-E3-LIN-2}
+\subsection{From $Q(\varepsilon, k)$ to $w$-MAX-E3-LIN-2}
+Let $\varepsilon \in (0, \frac{1}{4})$ and $k>0$ be an integer such that the problem $Q(\varepsilon, k)$ is NP-hard. Let an instance $I$ of $Q(\varepsilon, k)$ be given by a set $\nu(I)$ of variables, where $\nu:=|\nu(I)|$.
+let's assume that there is an amplifier $G=(V,E)$ with edge weights $p:E\leftrightarrow \mathbb{R}^+$, with a set of contacts $D$ with $|D|=k$. 
+
+Now, there is a gap preserving reduction from $Q(\varepsilon, k)$ to $w$-MAX-E3-LIN-2 with the amplifier as a parameter. 
+The instance $I$ of $Q(\varepsilon, k)$ is transformed into a hybrid instance $J$ of $w$-MAX-E3-LIN-2 as follows:
+\begin{itemize}
+    \item For each variable $x \in \nu(I)$, we create a copy of the amplifier $G$, denoted $G_x$. 
+        \begin{itemize}
+            \item Inside $G_x$, the vertices correspond to variables in $J$ and each edge $(u,v)$ represents the equation $u + v = 0$ with weight $p(u,v)$.
+            \item Contacts in $G_x$ represent the $k$ occurrences of the variable $x$ in the equations of $I$. Each contact is associated with one occurrence of $x$ in $I$.
+        \end{itemize}
+    \item Every equation in $I$ of the form $x_{i_1} + x_{i_2} + x_{i_3} = b$ also belongs to $J$ with weight 1. 
+\end{itemize}
+
 \end{document}

@@ -125,6 +125,11 @@ INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\lm\lm-mathit.
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\lm\lm-mathex.enc
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\lm\lm-mathsy.enc
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\lm\lm-ts1.enc
+INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\lmmi12.tfm
+INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\lmsy10.tfm
+INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\rm-lmbx12.tfm
 INPUT main.aux
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmbx10.pfb
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmbx10.pfb
@@ -136,6 +141,8 @@ INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmex10.
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmex10.pfb
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmmi10.pfb
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmmi10.pfb
+INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmmi12.pfb
+INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmmi12.pfb
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmmi7.pfb
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmmi7.pfb
 INPUT C:\Users\FA507\AppData\Local\Programs\MiKTeX\fonts\type1\public\lm\lmr10.pfb
