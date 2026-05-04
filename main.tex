@@ -1,15 +1,55 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{lmodern,amsthm,amsfonts,amssymb,anyfontsize,thm-restate}
 
-\title{My GitHub LaTeX Project}
-\author{Your Name}
+\newtheorem{innercustomthm}{Theorem}
+\newtheorem{innercustomlem}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{innercustomdef}{Definition}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{claim}{Claim}
+\title{A whole lot of reductions}
+\author{Sergio J. Hernando Rivero}
 \date{\today}
 
 \begin{document}
 
 \maketitle
 
-\section{Introduction}
-Hello! This is my first LaTeX file initialized in VS Code and synced with GitHub.
+\section{preliminaries}
+\begin{definition}
+    A \textbf{tour} in a graph $G = (V, E)$ is a sequence of vertices and edges adjacent to them in the graph that spans every vertex. We usually refer to the multiset of edges defined by a tour as $T$. The \textbf{cost} of a tour $T$ is the sum of the weights of the edges in $T$, denoted as $c(T) = \sum_{e \in T} c(e)$.
+\end{definition}
+This definition is equivalent to saying that a tour is a Eulerian multigraph that spans every vertex of $G$.
+\begin{definition}[Metric TSP]
+    Let $G = (V, E)$ be a connected undirected graph. The \textbf{Metric Traveling Salesperson Problem} (Metric TSP) is defined as follows:
+    \begin{itemize}
+        \item \textbf{Instance:} A complete graph $G = (V, E)$ which is connected by definition, and a cost function $c: E \to \mathbb{R}_{\geq 0}$ that satisfies the triangle inequality:
+        \begin{equation}
+            c(u, v) \leq c(u, w) + c(w, v) \quad \text{for all } u, v, w \in V.
+        \end{equation}
+        \item \textbf{Objective:} Find a closed tour $C$ in $G$ such that the total weight $c(C) = \sum_{e \in C} c(e)$ is minimized.
+    \end{itemize}
+\end{definition}
+\begin{definition}[Quasi-Tour]
+    A \textbf{quasi-tour} $T_0$ in a graph $G = (V, E)$ is a subset of edges in $T$ removing edges from a finite set of closed tours. 
+    Each connected component of this multigraph is either a Eulerian multigraph or an isolated vertex. 
+\end{definition}
+A given multiset of edges $T_0$ is a quasi-tour if and only if it is Eulerian.
 
+\section{Starting point}
+\begin{definition}[MAX-E3-LIN-2]
+    The \textbf{MAX-E3-LIN-2} problem is defined as follows:
+    \begin{itemize}
+        \item \textbf{Instance:} A set of $n$ boolean variables $x_1, x_2, \ldots, x_n$ and a collection of $m$ linear equations over $\mathbb{F}_2$, where each equation involves exactly three variables. Each equation is of the form:
+        \begin{equation}
+            x_{i_1} + x_{i_2} + x_{i_3} = b_j,
+        \end{equation}
+        where $b_j \in \{0, 1\}$ and $i_1, i_2, i_3$ are distinct indices from $\{1, 2, \ldots, n\}$.
+        \item \textbf{Objective:} Find an assignment to the variables that maximizes the number of satisfied equations.
+    \end{itemize}
+\end{definition}
 \end{document}
