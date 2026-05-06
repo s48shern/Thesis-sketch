@@ -1,12 +1,13 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\usepackage{lmodern,amsthm,amsfonts,amssymb,anyfontsize,thm-restate}
+\usepackage{lmodern,amsthm,amsfonts,amssymb,anyfontsize,thm-restate, dsfont}
 
 \newtheorem{innercustomthm}{Theorem}
 \newtheorem{innercustomlem}{Lemma}
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
 \newtheorem{innercustomdef}{Definition}
 \newtheorem*{definition*}{Definition}
 \newtheorem*{thm*}{Theorem}
@@ -40,6 +41,18 @@ This definition is equivalent to saying that a tour is a Eulerian multigraph tha
     Each connected component of this multigraph is either a Eulerian multigraph or an isolated vertex. 
 \end{definition}
 A given multiset of edges $T_0$ is a quasi-tour if and only if it is Eulerian.
+In the rest of this article, we are going to use a slightly modified version of this problem, enforcing some edges. 
+
+\begin{definition}[TSP$_f$]
+    An instance of the \textbf{TSP$_f$} problem is defined by a weighted metric graph $G = (V, E_u\dot\cup E_f, c)$ and the objective is to find a tour that contains all the edges in $E_f$ at least once and uses each edge at most twice. 
+\end{definition}
+We say that a tour $T$ satisfying the conditions of TSP$_f$ is a \textbf{valid tour}.
+\begin{lemma}
+    Let $\varepsilon>0$. There is a polynomial time reduction mapping a given instance $(G,c)$ of TSP$_f$ to an instance $(G',c')$ of Metric TSP such that, if $T$ is the minimum weight spanning tour in $G$ and $T'$ is the minimum weight spanning tour in $G'$, then 
+    \[c(T) -\varepsilon \max\limits_{e \in E_f} c(e) \leq c'(T')\leq c(T)\]
+\end{lemma}
+Then, we are not worsening the approximation factor of TSP by using TSP$_f$ instead of TSP, as the optimal solution of TSP$_f$ is at most $\varepsilon \max\limits_{e \in E_f} c(e)$ away from the optimal solution of TSP.
+For low enough values of $\varepsilon$, this difference is negligible, and thus the approximation factor is preserved.
 
 \section{Starting point}
 For the reduction, we will start from a common hard to approximate problem: 
@@ -94,7 +107,7 @@ Observe that the reduction above from $I$ to $J$ is a gap preserving reduction. 
 If we look as these problems as minimum unsatisfiability problems, where OPT' is the minimum weight of unsatisfied equations over all assignments, then \linebreak
 OPT'$(I)$= OPT'$(J)$.
 Any assignment to variables from $\nu(I)$ generate an assignment to variables of $J$ naturally, as the value of $x\in \nu(I)$ will be assigned to all the variables in $G_x$. These are called standard. 
-Then, OPT'$(J)leq$ OPT'$(I)$ because any assignment to $I$ can be extended to a standard assignment to $J$ with the same weight of unsatisfied equations.
+Then, OPT'$(J)\leq$ OPT'$(I)$ because any assignment to $I$ can be extended to a standard assignment to $J$ with the same weight of unsatisfied equations.
 \\
 To see that the optimum OPT'$(J)$ is attained on standard assignments, we use the properties of the amplifier.
 Any assignment $\varphi$ to the variables of $J$ can be transformed into a standard assignment $\varphi'$ without increasing the weight of unsatisfied equations.
@@ -147,5 +160,67 @@ This doesn't add equations to the system, but it just renames the variables in t
 Then, we have produced $m$ equations of the form $x+y+z=b$ with weight 1, $3\tau m$ equations of the form $x+y=0$, with weight $p_c$, and $\frac{3}{2}(\tau-1) m$ equations of the form $x+y=1$, with weight $p_m$.
 The degree of the variables is 3 in any case, as each variable in the bi-wheel amplifier has degree 3, and each variable in the equations of $I$ is replaced by a variable in the bi-wheel amplifier that also has degree 3.
 The gap preserving property of the reduction is a consequence of the properties of the bi-wheel amplifier, as mentioned in the previous section.
+\end{proof}
+
+It is at this point that we change the perspective, as this is the problem we will be using from now onwards. 
+We will start by labeling all the variables in the system of equations hybrid-$(W_{k,\tau},p)$. First of all, there are $2\tau k \nu$ variables in the system, as each variable in $\nu(I)$ is replaced by $2\tau k$ variables in the bi-wheel amplifier. 
+We label these variables as $x_{i,j,b}$, where $i \in \{1, \ldots, \nu\}$, $j \in \{1, \ldots, \tau k\}$ and $b\in \{u,n\}$.
+Each variable will participate in two distinct equations of the form $x+y=0$, which correspond to the cycle equations.
+Additionally, each checker will appear in a single equation of the form $x+y=1$ and every contact will appear in a single equation of the form $x+y+z=b$.
+Another way of expressing this notion is that for $S =\{\tau l : l\in \{1, \ldots, k\}\}$, and contacts are caracterized by $j\in S$, while checkers are caracterized by $j\notin S$.
+The weights of every equationare kept as in the definition of hybrid-$(W_{k,\tau},p)$: $p_c$ for cycle equations, $p_m$ for matching equations and 1 for the equations of the form $x+y+z=b$.
+\section{Reduction to TSP$_f$ from Hybrid-$(W_{k,\tau},p)$}
+This reduction is defined by gadgets that determine how we map every equation to a graph in which we can define a valid tour. We call these \textbf{equation gadgets}.
+We have seen that there are three types of equations in our system. The most interesting ones are the equations of the form $x+y+z=b$, and they define degree 3 equation gadgets. 
+\begin{definition}[Degree 3 equation gadget]
+    An \textbf{degree 3 equation gadget} is a weighted multigraph $H=(V,E_u\dot\cup E_f, c)$ on a vertex set $V= [4+n_{aux}]$ with the following properties:
+    \begin{itemize}
+        \item The vertices are partitioned into three sets: 
+        \begin{itemize}
+            \item A central vertex, $4$.
+            \item A set of three contact vertices, $\{1,2,3\}$.
+            \item A set of auxiliary vertices, $\{5,6,\ldots,4+n_{aux}\}$.
+        \end{itemize}
+        \item $H$ forms an instance of TSP$_f$, and contains a fixed set of unforced edges $E_s\subset E_u$, called \textit{special edges}, of cost $1/2$ connecting the central vertex to the contacts. 
+    \end{itemize}
+\end{definition}
+Given an equation gadget $H$ and a valid tour $Q$ in $H$, we define $S_i^H(Q)$ as the number of special edges  in $Q$ that appear $i$ times in $Q$. 
+We aim to encode an assignment $z\in \{0,1\}^3$ to the variables in an equation as a spanning tour such that the special edge connecting the central vertex to the $i$-th contact appears twice if $z_i=1$ and does not appear if $z_i=0$.
+The key idea is that satisfying assignments to the equation will correspond to valid tours with low weights and spanning tours not of this form will be more expensive.
+To encapsulate this, we define the following: 
+\begin{definition}[Soundness and completeness] Given an equation gadget $H = (V, E_u   \dot\cup E_f, w)$ for an equation $I=x+y+z=1$, we define:
+\begin{itemize}
+    \item \textbf{Completeness:} Let $z\in \{0,1\}^3$, and let $C\subset \{0,1\}^3$ be the set of satisfying assignments of $I$. We use $\mathcal{Q}_{\mathbf{z}}$ to refer to the set of valid tours $Q$ in $H$ such that the special edge $(\ell, 4)$ is unused for all $\ell$ such that $\mathbf{z}_\ell = 0$, and is used twice otherwise. $c(H)$ is defined as
+    \[
+    c(H) = \max_{z \in C} \min_{Q \in \mathcal{Q}_{z}} c(Q)
+    \]
+    \item \textbf{Soundness:} $s(H)$ is defined as
+    \[
+    s(H) = \min_{Q} w(Q) - k_1^H(Q)/2 - \mathds{1}_{k_1^H(Q) = 0} \cdot \mathds{1}_{k_2^H(Q) \text{ is even}}
+    \]
+    where the minimum is taken over all valid spanning tours $Q$.
+\end{itemize}
+\end{definition}
+Now, we can provide a reduction from the NP-hard problem hybrid-$(W_{k,\tau},p)$ to TSP$_f$.
+Suppose we are given a Hybrid-$(W_{k,\tau},p)$ instance $I$, we will create an instance $G$ of TSP$_f$ as follows:
+\begin{itemize}
+    \item We will create a single central vertex $s$, as well as a vertex $v_{i,j,b}$ for each corresponding variable $x_{i,j,b}$ in the system of equations.
+    \item For each equation of the form $x_{i,j,b}+x_{i',j',b'}=0$, we add to $G$ a single unforced edge of cost $p_c$ between $v_{i,j,b}$ and $v_{i',j',b'}$.
+    \item For each equation of the form $x_{i,j,b}+x_{i',j',b'}=1$, we add to $G$ two parallel forced edges of cost $p_m$ between $v_{i,j,b}$ and $v_{i',j',b'}$.
+    \item For each equation of the form $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$, we add to $G$ a copy of the gadget $H$ corresponding to this equation, and we identify the contact vertices of $H$ with the vertices $v_{i_1,j_1,b_1}$, $v_{i_2,j_2,b_2}$ and $v_{i_3,j_3,b_3}$, and the central vertex of $H$ with $s$. The central vertex is shared between all such gadgets. 
+\end{itemize}
+\begin{theorem}
+Suppose there is an assignment $x= (x_{i,j,b})_{i,j,b}$ to the Hybrid-$(W_{k,\tau},p)$ instance that satisfies all degree $2$  clauses and violates at most $\Delta$ degree 3 clauses. 
+Then there is a spanning tour in $G$ of total weight at most papapa.
+\end{theorem}
+\begin{proof}
+    We construct collections of edges $T^=, T^\not=$ AND $T^3$ from $G$ as follows:
+    \begin{itemize}
+        \item We add one copy of each forced edge of cost $p_m$ to $T^\not=$. 
+        \item If a variable $x_{i,j,b}$ is set to 1, $T^=$ contains one copy of both unforced edges of cost $p_c$ corresponding to $v_{i,j,b}$.
+    \end{itemize}
+    The total weight of $T^\not=$ is $2\cdot(\tau-1)p_m nk$, while the total weight of $T^=$ is $\tau p_c nk$.
+    For each degree 3 clause $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$, we consider an optimal valid tour $Q*= \arg \min\limits_{Q \in Q_z} c(Q)$. Then, we add the non-special edges of $Q^*$ to $T^3$. 
+    Finally, we add to $T^=$ two copies of the special edge $(s, v_{i,j,b})$ for each variable $x_{i,j,b}$ that is set to 0.
 \end{proof}
 \end{document}
