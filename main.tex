@@ -8,6 +8,7 @@
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
 \newtheorem{innercustomdef}{Definition}
 \newtheorem*{definition*}{Definition}
 \newtheorem*{thm*}{Theorem}
@@ -44,7 +45,8 @@ A given multiset of edges $T_0$ is a quasi-tour if and only if it is Eulerian.
 In the rest of this article, we are going to use a slightly modified version of this problem, enforcing some edges. 
 
 \begin{definition}[TSP$_f$]
-    An instance of the \textbf{TSP$_f$} problem is defined by a weighted metric graph $G = (V, E_u\dot\cup E_f, c)$ and the objective is to find a tour that contains all the edges in $E_f$ at least once and uses each edge at most twice. 
+    An instance of the \textbf{TSP$_f$} problem is defined through a weighted metric graph $G = (V, E_u\dot\cup E_f, c)$ 
+    Its objective is to find a tour that contains all the edges in $E_f$ at least once and uses each edge at most twice. 
 \end{definition}
 We say that a tour $T$ satisfying the conditions of TSP$_f$ is a \textbf{valid tour}.
 \begin{lemma}
@@ -169,6 +171,12 @@ Each variable will participate in two distinct equations of the form $x+y=0$, wh
 Additionally, each checker will appear in a single equation of the form $x+y=1$ and every contact will appear in a single equation of the form $x+y+z=b$.
 Another way of expressing this notion is that for $S =\{\tau l : l\in \{1, \ldots, k\}\}$, and contacts are caracterized by $j\in S$, while checkers are caracterized by $j\notin S$.
 The weights of every equationare kept as in the definition of hybrid-$(W_{k,\tau},p)$: $p_c$ for cycle equations, $p_m$ for matching equations and 1 for the equations of the form $x+y+z=b$.
+
+In the second paper, they provide a different problem definition of $w$-MAX-E3-LIN-2. This definition has doubled the number of total clauses, and works with $nk$ instead of $m$. 
+This problem definition is equivalent, but the inapproximability guarantee is slightly different. Setting $\varepsilon'=\frac{2}{3}\varepsilon$ and doubling the total amount of clauses:
+\begin{corollary}
+    It is NP-hard to decide if equations of weight at least  $(\frac{2}{3}-\varepsilon') nk$ or at most $(1 - \varepsilon')nk$  can be satisfied by an optimal assignment.
+\end{corollary}
 \section{Reduction to TSP$_f$ from Hybrid-$(W_{k,\tau},p)$}
 This reduction is defined by gadgets that determine how we map every equation to a graph in which we can define a valid tour. We call these \textbf{equation gadgets}.
 We have seen that there are three types of equations in our system. The most interesting ones are the equations of the form $x+y+z=b$, and they define degree 3 equation gadgets. 
@@ -190,13 +198,13 @@ The key idea is that satisfying assignments to the equation will correspond to v
 To encapsulate this, we define the following: 
 \begin{definition}[Soundness and completeness] Given an equation gadget $H = (V, E_u   \dot\cup E_f, w)$ for an equation $I=x+y+z=1$, we define:
 \begin{itemize}
-    \item \textbf{Completeness:} Let $z\in \{0,1\}^3$, and let $C\subset \{0,1\}^3$ be the set of satisfying assignments of $I$. We use $\mathcal{Q}_{\mathbf{z}}$ to refer to the set of valid tours $Q$ in $H$ such that the special edge $(\ell, 4)$ is unused for all $\ell$ such that $\mathbf{z}_\ell = 0$, and is used twice otherwise. $c(H)$ is defined as
+    \item \textbf{Completeness:} Let $z\in \{0,1\}^3$, and let $C\subset \{0,1\}^3$ be the set of satisfying assignments of $I$. We use $\mathcal{Q}_{\mathbf{z}}$ to refer to the set of valid tours $Q$ in $H$ such that the special edge $(\ell, 4)$ is unused for all $\ell$ such that $\mathbf{z}_\ell = 0$, and is used twice otherwise. $c{(H)}$ is defined as
     \[
     c(H) = \max_{z \in C} \min_{Q \in \mathcal{Q}_{z}} c(Q)
     \]
     \item \textbf{Soundness:} $s(H)$ is defined as
     \[
-    s(H) = \min_{Q} w(Q) - k_1^H(Q)/2 - \mathds{1}_{k_1^H(Q) = 0} \cdot \mathds{1}_{k_2^H(Q) \text{ is even}}
+    s(H) = \min_{Q} w(Q) - k_1^H(Q)/2 - \mathds{1}_{ {k_1^H(Q) = 0} } \cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}} }
     \]
     where the minimum is taken over all valid spanning tours $Q$.
 \end{itemize}
@@ -209,18 +217,62 @@ Suppose we are given a Hybrid-$(W_{k,\tau},p)$ instance $I$, we will create an i
     \item For each equation of the form $x_{i,j,b}+x_{i',j',b'}=1$, we add to $G$ two parallel forced edges of cost $p_m$ between $v_{i,j,b}$ and $v_{i',j',b'}$.
     \item For each equation of the form $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$, we add to $G$ a copy of the gadget $H$ corresponding to this equation, and we identify the contact vertices of $H$ with the vertices $v_{i_1,j_1,b_1}$, $v_{i_2,j_2,b_2}$ and $v_{i_3,j_3,b_3}$, and the central vertex of $H$ with $s$. The central vertex is shared between all such gadgets. 
 \end{itemize}
-\begin{theorem}
+\begin{theorem}[Completeness]
 Suppose there is an assignment $x= (x_{i,j,b})_{i,j,b}$ to the Hybrid-$(W_{k,\tau},p)$ instance that satisfies all degree $2$  clauses and violates at most $\Delta$ degree 3 clauses. 
 Then there is a spanning tour in $G$ of total weight at most papapa.
 \end{theorem}
 \begin{proof}
-    We construct collections of edges $T^=, T^\not=$ AND $T^3$ from $G$ as follows:
+    We construct collections of edges $T^=, T^{\not =}$ AND $T^3$ from $G$ as follows:
     \begin{itemize}
-        \item We add one copy of each forced edge of cost $p_m$ to $T^\not=$. 
-        \item If a variable $x_{i,j,b}$ is set to 1, $T^=$ contains one copy of both unforced edges of cost $p_c$ corresponding to $v_{i,j,b}$.
+        \item We add one copy of each forced edge of cost $p_m$ to $T^{\not =}$. 
+        \item If a variable $x_{i,j,b}$ is set to 1, $T^=$ contains one copy of both unforced cycle edges of cost $p_c$ adjacent to $v_{i,j,b}$.
+        As the wheel contains two types of contact variables (negated and unnegated), one of the two sides of the wheel will be always connected.
     \end{itemize}
-    The total weight of $T^\not=$ is $2\cdot(\tau-1)p_m nk$, while the total weight of $T^=$ is $\tau p_c nk$.
-    For each degree 3 clause $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$, we consider an optimal valid tour $Q*= \arg \min\limits_{Q \in Q_z} c(Q)$. Then, we add the non-special edges of $Q^*$ to $T^3$. 
-    Finally, we add to $T^=$ two copies of the special edge $(s, v_{i,j,b})$ for each variable $x_{i,j,b}$ that is set to 0.
+    The total weight of $T^{\not =}$ is $2\cdot(\tau-1)p_m nk$, while the total weight of $T^=$ is $\tau p_c nk$.
+    For each degree 3 clause $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$ which is satisfied, we consider an optimal valid tour $Q*= \arg \min\limits_{Q \in Q_z} c(Q)$. Then, we add the non-special edges of $Q^*$ to $T^3$. 
+    As an exception, in the case that $j_1,j_2,$ or $j_3$= 0 we will add all special edges, to ensure connectivity. This has a total cost of 3 per wheel, so $3n$ in total. It will be negligible for high values of $k$.
+    This will ensure connectivity. If it is not satisfied, we add all a minimum weight tour, as well as all the special edges twice. 
+    The weight of edges added per degree 3 gadget is then bounded by: 
+    \[c(H)-(x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3})+2w(H)(\mathds{1}_{0\in \{j_1,j_2,j_3\}}+\mathds{1}_{x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=0})\]
+    As an explanation of the last term, if the clause is satisfied, we add at most $c(H)$, while if it is not satisfied, we add at most $c(H)+2w(H)$, as we will need to add all special edges to ensure connectivity.
+    Summing over all degree three clauses, we obtain $w(T^3)\leq c(H)-nk+2w(H)*(2n+\delta)$.
+    The sum over all assignments is exactly $nk$ because all the contact variables appear exactly one time per equation, half of them have value 0 and half of them have value 1 and there's $2nk$ of them. 
+    The last term references the total number of unsatisfied clauses $(\Delta)$ and the fact that at most $2n$ clauses contain the first element of a wheel. 
+    This subset of edges that we have just built keeps an even degree over all vertices, as the three ways in which we have added vertices do. 
+    \begin{claim}$T$ has a single connected component consisting of $V(G)$
+    \end{claim}
+    \begin{proof}
+         We will argue that all the wheels are connected to the central vertex $s$. 
+        In the biwheel structure, all the checkers are connected to one checker in the other wheel via two forced edges. 
+        Also, if a variable is set to a given value $b\in{0,1}$, the corresponding wheel is connected via the unforced edges, connecting all the checkers and half the contacts.
+        These are connected to the central vertex via the special degree 3 tour in the first vertex per wheel.
+        Additionally, all the satisfied equations have at least one variable set to 1, so all the contacts assigned 0 that appear in satisfied equations are connected, and the unsatisfied equations are connected. 
+        What remains to be seen is that the auxiliary vertices are connected.
+        
+        The minimum cost tour over all the degree 3 gadgets covers all of them, so trivially this condition is also fulfilled.
+    \end{proof}
+    By construction, all the forced edges are used at least once and none is used more than twice. As it is connecting and spanning, it is a valid tour. 
+    Its total cost is 
+    \[c(T^{\not =})+c(T^=)+c(T^3)\leq2(\tau-1)p_m nk+ \tau p_c nk+c(H)-nk+2w(H)*(2n+\delta)=\]
+    \[=nk(2*(\tau-1)p_m+\tau p_c+\frac{2}{3}c(H)-1)+ 2(\Delta+2n)w(H)\]
+\end{proof}
+\begin{theorem}[Soundness]
+    Suppose there is a valid spanning tour $T$ of the $TSP_f$ instance $G$ with cost at most papapa. Then, there is an assignment that leaves at most $2\Delta$ clauses unsatisfied.
+\end{theorem}
+\begin{proof}
+    Let us, as before, write $T= T^{\not =} +T^=+T^3$, where each of the components is, as before, the amount of edges in $T$ belonging to every part of the reduction. 
+    We define $U^=$ to be $T^=$ without the edges appearing twice removed. This forms a quasi-tour. 
+    To assign values to variables, we will look at its local value in $U^=$.
+    In particular, for a given variable $x_{i,j,b}$ we denote $l_{i,j,b}$ and $r_{i,j,b}$ to be the number of copies of $(x_{i,j-1,b}, x_{i,j,b})$ and $(x_{i,j,b}, x_{i,j+1,b})$, respectively. Of course, $l_{i,j,b}, r_{i,j,b} \in \{0,1\}$.
+    We say $x_{i,j,b}$ is \textit{honest} if the $l_{i,j,b}=r_{i,j,b}$, and \textit{dishonest} otherwise. 
+    It is quite easy to define the value of a honest variable. We will assign $x_{i,j,b}=l_{i,j,b}$. 
+    However, when assigning values to a dishonest variable, one must be a bit more careful. 
+    \begin{claim}
+        Two edges connected by an inequality clause are either both honest or both dishonest
+    \end{claim}
+    \begin{proof}
+        
+    \end{proof}
+
 \end{proof}
 \end{document}
