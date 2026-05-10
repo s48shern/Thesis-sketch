@@ -271,8 +271,42 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
         Two edges connected by an inequality clause are either both honest or both dishonest
     \end{claim}
     \begin{proof}
-        
+        The only edges adjacent to a pair of vertices $x_{i,j,u}, x_{i,j,n}$ are the two forced edges connecting them and the two cycle edges connecting each of them to their respective cycle. 
+        As the forced edges are adjacent to both of the vertices, removing them doesn't change parity of the degree difference.
+        Let's assume, w.l.o.g., that $x_{i,j,u}$ is honest and $x_{i,j,n}$ is dishonest. Then,  $deg(x_{i,j,u})-deg(x_{i,j,n})$  is odd, which means one of the two has odd degree originally. This contradicts $T$ being a tour. 
     \end{proof}
+    \begin{itemize}
+    \item If both edges connected to an inequality clause are dishonest, we assign a random value $b\in{0,1}$ to $x_{i,j,u}$ and the opposite value to $x_{i,j,n}$. 
+    \item For each degree 3 clause containing at least one dishonest variable, we assign a value to said variable that ensures the clause is satisfied. 
+    \end{itemize}
+    Once we have defined the value each variable takes, we define some quantities:
+    \begin{itemize}
+        \item $d_{ch}$: number of dishonest checkers
+        \item $d_{co}$: number of dishonest contacts
+        \item $p_{ch}$: number of inequality constraints with honest contacts and same value assigned
+        \item $r$: number of unsatisfied degree 3 equation with honest variables
+    \end{itemize}
+    \begin{claim}
+        The expected weight of unsatisfied clauses is at most $1/2*(d_{ch}+d_{co})+p_{ch}+r$
+    \end{claim}
+    \begin{proof}
+        Let's upper bound the total number of clauses by recapping our previous analysis. 
+        \begin{itemize}
+            \item Equality clauses are always satisfied in honest vertices. 
+            Every equality clause adjacent to a dishonest checker is satisfied with probability 1/2 due to the random assignment. 
+            That also takes care of the equality constraints of dishonest checkers adjacent to contacts. 
+            If the adjacent checkers are honest, they must be assigned different values, as their contact is dishonest. Then, only one is unsatisfied.
+            Then, the expected number of equality clauses is at most $d_{ch}+d_{co}$.
+            \item Inequality clauses are only unsatisfied when the vertices they contain are both honest and have the same value. These are just $p_{ch}$.
+            \item All clauses with dishonest vertices are satisfied, so the total number of unsatisfied clauses is $r$.
+        \end{itemize}
+        After taking into account the weights of each equation, the result is proven. 
+    \end{proof}
+    \begin{claim}
+        $w(T)\geq nk\cdots (30+2\cdot s(H)/3)+(d_{ch}+d_{co})/2+p_ch+r$
+    \end{claim}
+    
+
 
 \end{proof}
 \end{document}
