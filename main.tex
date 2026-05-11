@@ -1,4 +1,12 @@
-\documentclass{article}
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=1.5cm,bottom=1.5cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{lmodern,amsthm,amsfonts,amssymb,anyfontsize,thm-restate, dsfont}
@@ -13,7 +21,7 @@
 \newtheorem*{definition*}{Definition}
 \newtheorem*{thm*}{Theorem}
 \newtheorem{exercise}{Exercise}[section]
-\newtheorem*{claim}{Claim}
+\newtheorem{claim}{Claim}
 \title{A whole lot of reductions}
 \author{Sergio J. Hernando Rivero}
 \date{\today}
@@ -53,7 +61,7 @@ We say that a tour $T$ satisfying the conditions of TSP$_f$ is a \textbf{valid t
     Let $\varepsilon>0$. There is a polynomial time reduction mapping a given instance $(G,c)$ of TSP$_f$ to an instance $(G',c')$ of Metric TSP such that, if $T$ is the minimum weight spanning tour in $G$ and $T'$ is the minimum weight spanning tour in $G'$, then 
     \[c(T) -\varepsilon \max\limits_{e \in E_f} c(e) \leq c'(T')\leq c(T)\]
 \end{lemma}
-Then, we are not worsening the approximation factor of TSP by using TSP$_f$ instead of TSP, as the optimal solution of TSP$_f$ is at most $\varepsilon \max\limits_{e \in E_f} c(e)$ away from the optimal solution of TSP.
+Then, we are not worsening the approximation factor of TSP by using TSP$_f$ instead of TSP, as the optimal solution of TSP$_f$ is at most $\varepsilon \max\limits_{e \in E_f} c(e)$ away from the optimal solution of TSP\@.
 For low enough values of $\varepsilon$, this difference is negligible, and thus the approximation factor is preserved.
 
 \section{Starting point}
@@ -106,7 +114,8 @@ Observe that the reduction above from $I$ to $J$ is a gap preserving reduction. 
     \item If at least $(1 + \varepsilon)m$ equations can be satisfied in $I$, then there is an assignment that satisfies all the equations in the amplifiers and at least $(1 - \varepsilon)m$ equations of weight 1, leading to a total weight of satisfied equations of at least $W_1 = k \cdot p(E) + (1 - \varepsilon)m$.
     \item If at most $(\frac{1}{2} - \varepsilon)m$ equations can be satisfied in $I$, then any assignment can satisfy at most $\frac{1}{2}m - \varepsilon m$ equations of weight 1, leading to a total weight of satisfied equations of at most $W_2 = k \cdot p(E) + (\frac{1}{2} - \varepsilon)m$.
 \end{itemize}
-If we look as these problems as minimum unsatisfiability problems, where OPT' is the minimum weight of unsatisfied equations over all assignments, then \linebreak
+If we look at these problems as minimum unsatisfiability problems, where OPT' is the minimum
+ weight of unsatisfied equations over all assignments, then 
 OPT'$(I)$= OPT'$(J)$.
 Any assignment to variables from $\nu(I)$ generate an assignment to variables of $J$ naturally, as the value of $x\in \nu(I)$ will be assigned to all the variables in $G_x$. These are called standard. 
 Then, OPT'$(J)\leq$ OPT'$(I)$ because any assignment to $I$ can be extended to a standard assignment to $J$ with the same weight of unsatisfied equations.
@@ -193,12 +202,12 @@ We have seen that there are three types of equations in our system. The most int
     \end{itemize}
 \end{definition}
 Given an equation gadget $H$ and a valid tour $Q$ in $H$, we define $S_i^H(Q)$ as the number of special edges  in $Q$ that appear $i$ times in $Q$. 
-We aim to encode an assignment $z\in \{0,1\}^3$ to the variables in an equation as a spanning tour such that the special edge connecting the central vertex to the $i$-th contact appears twice if $z_i=1$ and does not appear if $z_i=0$.
+We aim to encode an assignment $z\in {\{0,1\}}^3$ to the variables in an equation as a spanning tour such that the special edge connecting the central vertex to the $i$-th contact appears twice if $z_i=1$ and does not appear if $z_i=0$.
 The key idea is that satisfying assignments to the equation will correspond to valid tours with low weights and spanning tours not of this form will be more expensive.
 To encapsulate this, we define the following: 
 \begin{definition}[Soundness and completeness] Given an equation gadget $H = (V, E_u   \dot\cup E_f, w)$ for an equation $I=x+y+z=1$, we define:
 \begin{itemize}
-    \item \textbf{Completeness:} Let $z\in \{0,1\}^3$, and let $C\subset \{0,1\}^3$ be the set of satisfying assignments of $I$. We use $\mathcal{Q}_{\mathbf{z}}$ to refer to the set of valid tours $Q$ in $H$ such that the special edge $(\ell, 4)$ is unused for all $\ell$ such that $\mathbf{z}_\ell = 0$, and is used twice otherwise. $c{(H)}$ is defined as
+    \item \textbf{Completeness:} Let $z\in {\{0,1\}}^3$, and let $C\subset {\{0,1\}}^3$ be the set of satisfying assignments of $I$. We use $\mathcal{Q}_{\mathbf{z}}$ to refer to the set of valid tours $Q$ in $H$ such that the special edge $(\ell, 4)$ is unused for all $\ell$ such that $\mathbf{z}_\ell = 0$, and is used twice otherwise. $c{(H)}$ is defined as
     \[
     c(H) = \max_{z \in C} \min_{Q \in \mathcal{Q}_{z}} c(Q)
     \]
@@ -218,7 +227,7 @@ Suppose we are given a Hybrid-$(W_{k,\tau},p)$ instance $I$, we will create an i
     \item For each equation of the form $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$, we add to $G$ a copy of the gadget $H$ corresponding to this equation, and we identify the contact vertices of $H$ with the vertices $v_{i_1,j_1,b_1}$, $v_{i_2,j_2,b_2}$ and $v_{i_3,j_3,b_3}$, and the central vertex of $H$ with $s$. The central vertex is shared between all such gadgets. 
 \end{itemize}
 \begin{theorem}[Completeness]
-Suppose there is an assignment $x= (x_{i,j,b})_{i,j,b}$ to the Hybrid-$(W_{k,\tau},p)$ instance that satisfies all degree $2$  clauses and violates at most $\Delta$ degree 3 clauses. 
+Suppose there is an assignment $x= {(x_{i,j,b})}_{i,j,b}$ to the Hybrid-$(W_{k,\tau},p)$ instance that satisfies all degree $2$  clauses and violates at most $\Delta$ degree 3 clauses. 
 Then there is a spanning tour in $G$ of total weight at most papapa.
 \end{theorem}
 \begin{proof}
@@ -230,7 +239,7 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
     \end{itemize}
     The total weight of $T^{\not =}$ is $2\cdot(\tau-1)p_m nk$, while the total weight of $T^=$ is $\tau p_c nk$.
     For each degree 3 clause $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$ which is satisfied, we consider an optimal valid tour $Q*= \arg \min\limits_{Q \in Q_z} c(Q)$. Then, we add the non-special edges of $Q^*$ to $T^3$. 
-    As an exception, in the case that $j_1,j_2,$ or $j_3$= 0 we will add all special edges, to ensure connectivity. This has a total cost of 3 per wheel, so $3n$ in total. It will be negligible for high values of $k$.
+    As an exception, in the case that $j_1,j_2$, or $j_3$= 0 we will add all special edges, to ensure connectivity. This has a total cost of 3 per wheel, so $3n$ in total. It will be negligible for high values of $k$.
     This will ensure connectivity. If it is not satisfied, we add all a minimum weight tour, as well as all the special edges twice. 
     The weight of edges added per degree 3 gadget is then bounded by: 
     \[c(H)-(x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3})+2w(H)(\mathds{1}_{0\in \{j_1,j_2,j_3\}}+\mathds{1}_{x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=0})\]
@@ -267,13 +276,13 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
     We say $x_{i,j,b}$ is \textit{honest} if the $l_{i,j,b}=r_{i,j,b}$, and \textit{dishonest} otherwise. 
     It is quite easy to define the value of a honest variable. We will assign $x_{i,j,b}=l_{i,j,b}$. 
     However, when assigning values to a dishonest variable, one must be a bit more careful. 
-    \begin{claim}
-        Two edges connected by an inequality clause are either both honest or both dishonest
+    \begin{claim}\label{parity}
+    Two edges connected by an inequality clause are either both honest or both dishonest
     \end{claim}
     \begin{proof}
         The only edges adjacent to a pair of vertices $x_{i,j,u}, x_{i,j,n}$ are the two forced edges connecting them and the two cycle edges connecting each of them to their respective cycle. 
         As the forced edges are adjacent to both of the vertices, removing them doesn't change parity of the degree difference.
-        Let's assume, w.l.o.g., that $x_{i,j,u}$ is honest and $x_{i,j,n}$ is dishonest. Then,  $deg(x_{i,j,u})-deg(x_{i,j,n})$  is odd, which means one of the two has odd degree originally. This contradicts $T$ being a tour. 
+        Let's assume, w.l.o.g., that $x_{i,j,u}$ is honest and $x_{i,j,n}$ is dishonest. Then,  $\deg(x_{i,j,u})-\deg(x_{i,j,n})$  is odd, which means one of the two has odd degree originally. This contradicts $T$ being a tour. 
     \end{proof}
     \begin{itemize}
     \item If both edges connected to an inequality clause are dishonest, we assign a random value $b\in{0,1}$ to $x_{i,j,u}$ and the opposite value to $x_{i,j,n}$. 
@@ -303,9 +312,34 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
         After taking into account the weights of each equation, the result is proven. 
     \end{proof}
     \begin{claim}
-        $w(T)\geq nk\cdots (30+2\cdot s(H)/3)+(d_{ch}+d_{co})/2+p_ch+r$
+        $w(T)\geq nk\cdot (30+2\cdot s(H)/3)+(d_{ch}+d_{co})/2+p_{ch}+r$
     \end{claim}
+    \begin{proof}
+    The idea is separately bounding the weight of edges in $T^=$, $T^{\not=}$ and $T^3$ separately. 
+    For this, once again, we will need to define a few quantities. 
+    \begin{itemize}
+        \item $t_{co}$: number of honest contacts assigned 1. 
+        \item $p^b_{ch}$: number of inequality clauses in which both checkers are assigned 
+        $b\in\{0,1\}$. Of course, $p^0_{ch}+p^1_{ch}= p_{ch}$.
+        \item $u_{co}$: number of connected components of $U^=\cup T^{\not =}\cup T^3$ using only edges from $T^3$
+    \end{itemize}
+    Then, we can commence the bounding:
+    \begin{itemize}
+        \item \textbf{$U^=$}: We can write \[|U^=|=\frac{1}{2} \sum\limits_{i,j,b} (l_{i,j,b} + r_{i,j,b}) = \frac{1}{2} \left( \sum\limits_{i,j : j|\tau,b} (l_{i,j,b} + r_{i,j,b}) + \sum\limits_{i,j : j \nmid \tau} v_{i,j} \right)\]
+        This is just a separation of the sum, using $v_{i,j}=l_{i,j,u}+r_{i,j,u}+l_{i,M(j),n}+r_{i,M(j),n}$. The left part of the sum affects the contact variables and the right one the checker variables. 
+        To bound the sum over all contacts, we note that, as we have proven before, a dishonest contact variable has $l_{i,j,b}+r_{i,j,b}$=1 and a honest variable assigned 1 has $l_{i,j,b}+r_{i,j,b}$=2. Then the first sum is $d_{co}+2t_{co}$.
+        To bound the second sum, we see that, as per claim\ref{parity}, $v_{i,j}$ must be even. Then $v_i,j=2$ if both checkers are dishonest, $v_i,j=0$ if both checkers are honest and assigned 0 and $v_{i,j}=4$ if they are honest and assigned 1. 
+        Therefore, the left part of the sum is $2(\tau-1)nk+2*p^1_{ch}-2p^0_{ch}$. 
+        Using the fact that each edhe was weight $p_c$ we obtain 
+        \[w(U^=)=p_c((\tau-1)nk+*p^1_{ch}-p^0_{ch}+\frac{d_{co}}{2}+t_{co})\]
+        \item \textbf{$T^=\backslash U^=$}: For this, since $T$ is a valir spanning tour, the total weight of edges in $T^=\backslash U^=$ is at least the number of connected components in  $U^=\cup T^{\not =}\cup T^3$ (two edges connecting them, each of them of weight $p_c$). 
+        \[w(T^=\backslash U^=)\geq 2p_c (p^0_{ch}+u_{co})\]
+        \item \textbf{$T^{\not =}$}: For any given pair of checker vertices connected, the tour crosses each forced edge at least once. Also, if either of the vertices is dishonest, $T$ being a tour implies one is crossed an additional time. 
+        Thus, $w(T^{\not=})\geq p_m (2*(\tau-1)nk+d_{ch}/2)$.
+         
     
+    \end{itemize}
+    \end{proof}
 
 
 \end{proof}
