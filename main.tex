@@ -330,14 +330,29 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
         To bound the sum over all contacts, we note that, as we have proven before, a dishonest contact variable has $l_{i,j,b}+r_{i,j,b}$=1 and a honest variable assigned 1 has $l_{i,j,b}+r_{i,j,b}$=2. Then the first sum is $d_{co}+2t_{co}$.
         To bound the second sum, we see that, as per claim\ref{parity}, $v_{i,j}$ must be even. Then $v_i,j=2$ if both checkers are dishonest, $v_i,j=0$ if both checkers are honest and assigned 0 and $v_{i,j}=4$ if they are honest and assigned 1. 
         Therefore, the left part of the sum is $2(\tau-1)nk+2*p^1_{ch}-2p^0_{ch}$. 
-        Using the fact that each edhe was weight $p_c$ we obtain 
-        \[w(U^=)=p_c((\tau-1)nk+*p^1_{ch}-p^0_{ch}+\frac{d_{co}}{2}+t_{co})\]
-        \item \textbf{$T^=\backslash U^=$}: For this, since $T$ is a valir spanning tour, the total weight of edges in $T^=\backslash U^=$ is at least the number of connected components in  $U^=\cup T^{\not =}\cup T^3$ (two edges connecting them, each of them of weight $p_c$). 
-        \[w(T^=\backslash U^=)\geq 2p_c (p^0_{ch}+u_{co})\]
+        Using the fact that each edge was weight $p_c$ we obtain 
+        \[c(U^=)=p_c((\tau-1)nk+p^1_{ch}-p^0_{ch}+\frac{d_{co}}{2}+t_{co})\]
+        \item \textbf{$T^=\backslash U^=$}: For this, since $T$ is a valid spanning tour, the total weight of edges in $T^=\backslash U^=$ is at least the number of connected components in  $U^=\cup T^{\not =}\cup T^3$ (two edges connecting them, each of them of weight $p_c$). 
+        \[c(T^=\backslash U^=)\geq 2p_c (p^0_{ch}+u_{co})\]
         \item \textbf{$T^{\not =}$}: For any given pair of checker vertices connected, the tour crosses each forced edge at least once. Also, if either of the vertices is dishonest, $T$ being a tour implies one is crossed an additional time. 
         Thus, $w(T^{\not=})\geq p_m (2*(\tau-1)nk+d_{ch}/2)$.
-         
-    
+        \item \textbf{$T^3$}: For a given degree 3 clause $C$ involving contacts $(x_{i_1,j_1,b_1}, x_{i_2,j_2,b_2}, x_{i_3,j_3,b_3})$, we can denote $T_C$ as the edges in $T^3$ that appear in the gadget corresponding to that clause. 
+        The main idea is extracting a valid tour $Q$ of the gadget graph $H$ and then use soundness properties of that graph to argue that $w(T_C)$ is large. 
+        First, we will take all the edges from $T_C$ into $Q$. Still, $Q$ might not be a spanning tour.
+        To solve this, we add $l_{i_l,j_l,b_l}+r_{i_l,j_l,b_l}$ copies of the speciel edge $(l,4)$ for edge $l\in \{1,2,3\}$, to ensure even degree and increase connectivity. For eah connected component in $Q$ not connected to the central vertex, we will add two copies of the special edge $l,4$ for each such component.
+        We will denote $u_{co}^{local}$ the number of such components.
+        Observe that the degree of all auxiliary vertices in $T_C$ is the same as in $Q$, and they are even. Since we have made sure tu preserve even degree when adding edges, all vertices have even degree. 
+        Also, we have ensured connectivity. As $Q$ uses each edge at most twice, forced edges are used at least once and is a tour, it is a valid tour. 
+        Then, by definition of soundness:
+        \[c(Q)\geq s(H)+ k_1^H(Q)/2 + \mathds{1}_{ {k_1^H(Q) = 0} \cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}} }} \]
+        Subtracting the contribution of the edges we added to $Q$, we obtain: 
+        \[c(T_C)=c(Q)-k_1^H(Q)-k_2^H(Q)\geq -u\geq s(H)-k_2^H(Q)+\mathds{1}_{ {k_1^H(Q) = 0} \cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}}}}\]
+        Note that if $u_{co}^{local}=0$, the indicator exactly indicates whether the clause is satisfied. 
+        Then $ s(H)-k_2^H(Q)+\mathds{1}_{ {k_1^H(Q) = 0} \cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}}}}\geq s(H)-u_{co}^{local}-k_2^H+C$. 
+        Here, $C=0$ if the clause isn't satisfied (following the two special edges if 1, 0 otherwise criterion). 
+        Summing over all $2nk/3$ degree 3 clauses and using the fact that the sum of $k_2^H-u_{co}^{local}$ is the total number of honest contact vertices assigned 1, $t_{co}$.
+        \[c(T^3)\geq 2nk/3 s(H)-2u_{co}-t_{co}+r\]
+        Then the lower bound \[c(T)= c(U^=)+c(T^=\backslash U^=)+c(T^{\not =})+c(T^3) \geq nk(2s(H)/3+(p_c+2p_m)(\tau-1))+p_c(p_{ch}+\frac{d_{co}}{2}+t_{co}+2u_{co})+p_m d_{ch}/2-2u_{co}-t_{co}+r\]
     \end{itemize}
     \end{proof}
 
