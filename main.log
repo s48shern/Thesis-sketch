@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.12.2)  12 MAY 2026 14:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.12.2)  12 MAY 2026 15:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -333,7 +333,7 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <17.28> on input line 97.
  [2] [3] [4]
-LaTeX Font Info:    Trying to load font information for U+dsrom on input line 216.
+LaTeX Font Info:    Trying to load font information for U+dsrom on input line 217.
  (C:\Users\FA507\AppData\Local\Programs\MiKTeX\tex/latex/doublestroke\udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 ) [5] [6] [7] [8] [9] (main.aux)
@@ -343,15 +343,15 @@ L3 programming layer <2024-01-04>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4459 strings out of 474486
- 77330 string characters out of 5743755
+ 4462 strings out of 474486
+ 77363 string characters out of 5743755
  1943542 words of memory out of 5000000
- 26653 multiletter control sequences out of 15000+600000
+ 26656 multiletter control sequences out of 15000+600000
  621940 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,8n,79p,467b,342s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/doublestroke/dsrom12.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/doublestroke/dsrom8.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/FA507/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (9 pages, 331003 bytes).
+Output written on main.pdf (9 pages, 333533 bytes).
 PDF statistics:
  140 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
