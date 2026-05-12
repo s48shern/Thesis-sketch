@@ -32,7 +32,7 @@
 
 \section{Preliminaries}
 \begin{definition}
-    A \textbf{tour} in a graph $G = (V, E)$ is a sequence of vertices and edges adjacent to them in the graph that spans every vertex. We usually refer to the multiset of edges defined by a tour as $T$. The \textbf{cost} of a tour $T$ is the sum of the weights of the edges in $T$, denoted as $c(T) = \sum_{e \in T} c(e)$.
+    A \textbf{tour} in a graph $G = (V, E)$ is a sequence of vertices and edges adjacent to them in the graph that spans every vertex. We usually refer to the multiset of edges defined by a tour as $T$. The \textbf{cost} of a tour $T$ is the sum of the costs of the edges in $T$, denoted as $c(T) = \sum_{e \in T} c(e)$.
 \end{definition}
 This definition is equivalent to saying that a tour is a Eulerian multigraph that spans every vertex of $G$.
 \begin{definition}[Metric TSP]
@@ -42,7 +42,7 @@ This definition is equivalent to saying that a tour is a Eulerian multigraph tha
         \begin{equation}
             c(u, v) \leq c(u, w) + c(w, v) \quad \text{for all } u, v, w \in V.
         \end{equation}
-        \item \textbf{Objective:} Find a closed tour $C$ in $G$ such that the total weight $c(C) = \sum_{e \in C} c(e)$ is minimized.
+        \item \textbf{Objective:} Find a closed tour $C$ in $G$ such that the total cost $c(C) = \sum_{e \in C} c(e)$ is minimized.
     \end{itemize}
 \end{definition}
 \begin{definition}[Quasi-Tour]
@@ -58,7 +58,7 @@ In the rest of this article, we are going to use a slightly modified version of 
 \end{definition}
 We say that a tour $T$ satisfying the conditions of TSP$_f$ is a \textbf{valid tour}.
 \begin{lemma}
-    Let $\varepsilon>0$. There is a polynomial time reduction mapping a given instance $(G,c)$ of TSP$_f$ to an instance $(G',c')$ of Metric TSP such that, if $T$ is the minimum weight spanning tour in $G$ and $T'$ is the minimum weight spanning tour in $G'$, then 
+    Let $\varepsilon>0$. There is a polynomial time reduction mapping a given instance $(G,c)$ of TSP$_f$ to an instance $(G',c')$ of Metric TSP such that, if $T$ is the minimum cost spanning tour in $G$ and $T'$ is the minimum cost spanning tour in $G'$, then 
     \[c(T) -\varepsilon \max\limits_{e \in E_f} c(e) \leq c'(T')\leq c(T)\]
 \end{lemma}
 Then, we are not worsening the approximation factor of TSP by using TSP$_f$ instead of TSP, as the optimal solution of TSP$_f$ is at most $\varepsilon \max\limits_{e \in E_f} c(e)$ away from the optimal solution of TSP\@.
@@ -179,10 +179,10 @@ We label these variables as $x_{i,j,b}$, where $i \in \{1, \ldots, \nu\}$, $j \i
 Each variable will participate in two distinct equations of the form $x+y=0$, which correspond to the cycle equations.
 Additionally, each checker will appear in a single equation of the form $x+y=1$ and every contact will appear in a single equation of the form $x+y+z=b$.
 Another way of expressing this notion is that for $S =\{\tau l : l\in \{1, \ldots, k\}\}$, and contacts are caracterized by $j\in S$, while checkers are caracterized by $j\notin S$.
-The weights of every equationare kept as in the definition of hybrid-$(W_{k,\tau},p)$: $p_c$ for cycle equations, $p_m$ for matching equations and 1 for the equations of the form $x+y+z=b$.
+The weights of every equation are kept as in the definition of hybrid-$(W_{k,\tau},p)$: $p_c$ for cycle equations, $p_m$ for matching equations and 1 for the equations of the form $x+y+z=b$.
 
 In the second paper, they provide a different problem definition of $w$-MAX-E3-LIN-2. This definition has doubled the number of total clauses, and works with $nk$ instead of $m$. 
-This problem definition is equivalent, but the inapproximability guarantee is slightly different. Setting $\varepsilon'=\frac{2}{3}\varepsilon$ and doubling the total amount of clauses:
+This problem definition is equivalent, but the perspective on the inapproximability guarantee is slightly different. Setting $\varepsilon'=\frac{2}{3}\varepsilon$ and doubling the total amount of clauses:
 \begin{corollary}
     It is NP-hard to decide if equations of weight at least  $(\frac{2}{3}-\varepsilon') nk$ or at most $(1 - \varepsilon')nk$  can be satisfied by an optimal assignment.
 \end{corollary}
@@ -218,17 +218,17 @@ To encapsulate this, we define the following:
     where the minimum is taken over all valid spanning tours $Q$.
 \end{itemize}
 \end{definition}
-Now, we can provide a reduction from the NP-hard problem hybrid-$(W_{k,\tau},p)$ to TSP$_f$.
+Now, we can provide a reduction from the NP-hard problem hybrid-$(W_{k,\tau},p)$ to TSP$_f$. Defining $\Theta=\frac{1}{\max{1}{p_m}}$.
 Suppose we are given a Hybrid-$(W_{k,\tau},p)$ instance $I$, we will create an instance $G$ of TSP$_f$ as follows:
 \begin{itemize}
     \item We will create a single central vertex $s$, as well as a vertex $v_{i,j,b}$ for each corresponding variable $x_{i,j,b}$ in the system of equations.
-    \item For each equation of the form $x_{i,j,b}+x_{i',j',b'}=0$, we add to $G$ a single unforced edge of cost $p_c$ between $v_{i,j,b}$ and $v_{i',j',b'}$.
-    \item For each equation of the form $x_{i,j,b}+x_{i',j',b'}=1$, we add to $G$ two parallel forced edges of cost $p_m$ between $v_{i,j,b}$ and $v_{i',j',b'}$.
+    \item For each equation of the form $x_{i,j,b}+x_{i',j',b'}=0$, we add to $G$ a single unforced edge of cost 1 between $v_{i,j,b}$ and $v_{i',j',b'}$.
+    \item For each equation of the form $x_{i,j,b}+x_{i',j',b'}=1$, we add to $G$ two parallel forced edges of cost $2p_c\Theta$ between $v_{i,j,b}$ and $v_{i',j',b'}$.
     \item For each equation of the form $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$, we add to $G$ a copy of the gadget $H$ corresponding to this equation, and we identify the contact vertices of $H$ with the vertices $v_{i_1,j_1,b_1}$, $v_{i_2,j_2,b_2}$ and $v_{i_3,j_3,b_3}$, and the central vertex of $H$ with $s$. The central vertex is shared between all such gadgets. 
 \end{itemize}
 \begin{theorem}[Completeness]
 Suppose there is an assignment $x= {(x_{i,j,b})}_{i,j,b}$ to the Hybrid-$(W_{k,\tau},p)$ instance that satisfies all degree $2$  clauses and violates at most $\Delta$ degree 3 clauses. 
-Then there is a spanning tour in $G$ of total weight at most papapa.
+Then there is a spanning tour in $G$ of total cost at most $nk(4 (\tau-1)p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(\Delta+2n)w(H)$.
 \end{theorem}
 \begin{proof}
     We construct collections of edges $T^=, T^{\not =}$ AND $T^3$ from $G$ as follows:
@@ -237,14 +237,14 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
         \item If a variable $x_{i,j,b}$ is set to 1, $T^=$ contains one copy of both unforced cycle edges of cost $p_c$ adjacent to $v_{i,j,b}$.
         As the wheel contains two types of contact variables (negated and unnegated), one of the two sides of the wheel will be always connected.
     \end{itemize}
-    The total weight of $T^{\not =}$ is $2\cdot(\tau-1)p_m nk$, while the total weight of $T^=$ is $\tau p_c nk$.
+    The total cost of $T^{\not =}$ is $4\cdot(\tau-1)p_c\Theta nk$, while the total cost of $T^=$ is $\tau nk$.
     For each degree 3 clause $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$ which is satisfied, we consider an optimal valid tour $Q*= \arg \min\limits_{Q \in Q_z} c(Q)$. Then, we add the non-special edges of $Q^*$ to $T^3$. 
     As an exception, in the case that $j_1,j_2$, or $j_3$= 0 we will add all special edges, to ensure connectivity. This has a total cost of 3 per wheel, so $3n$ in total. It will be negligible for high values of $k$.
-    This will ensure connectivity. If it is not satisfied, we add all a minimum weight tour, as well as all the special edges twice. 
-    The weight of edges added per degree 3 gadget is then bounded by: 
+    This will ensure connectivity. If it is not satisfied, we add all a minimum cost tour, as well as all the special edges twice. 
+    The cost of edges added per degree 3 gadget is then bounded by: 
     \[c(H)-(x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3})+2w(H)(\mathds{1}_{0\in \{j_1,j_2,j_3\}}+\mathds{1}_{x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=0})\]
     As an explanation of the last term, if the clause is satisfied, we add at most $c(H)$, while if it is not satisfied, we add at most $c(H)+2w(H)$, as we will need to add all special edges to ensure connectivity.
-    Summing over all degree three clauses, we obtain $w(T^3)\leq c(H)-nk+2w(H)*(2n+\delta)$.
+    Summing over all degree three clauses, we obtain $w(T^3)\leq c(H)-nk+2w(H) (2n+\delta)$.
     The sum over all assignments is exactly $nk$ because all the contact variables appear exactly one time per equation, half of them have value 0 and half of them have value 1 and there's $2nk$ of them. 
     The last term references the total number of unsatisfied clauses $(\Delta)$ and the fact that at most $2n$ clauses contain the first element of a wheel. 
     This subset of edges that we have just built keeps an even degree over all vertices, as the three ways in which we have added vertices do. 
@@ -262,8 +262,8 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
     \end{proof}
     By construction, all the forced edges are used at least once and none is used more than twice. As it is connecting and spanning, it is a valid tour. 
     Its total cost is 
-    \[c(T^{\not =})+c(T^=)+c(T^3)\leq2(\tau-1)p_m nk+ \tau p_c nk+c(H)-nk+2w(H)*(2n+\delta)=\]
-    \[=nk(2*(\tau-1)p_m+\tau p_c+\frac{2}{3}c(H)-1)+ 2(\Delta+2n)w(H)\]
+    \[c(T^{\not =})+c(T^=)+c(T^3)\leq 4(\tau-1)p_c\Theta nk+ \tau nk+c(H)-nk+2w(H) (2n+\delta)=\]
+    \[=nk(4 (\tau-1)p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(\Delta+2n)w(H)\]
 \end{proof}
 \begin{theorem}[Soundness]
     Suppose there is a valid spanning tour $T$ of the $TSP_f$ instance $G$ with cost at most papapa. Then, there is an assignment that leaves at most $2\Delta$ clauses unsatisfied.
@@ -296,7 +296,7 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
         \item $r$: number of unsatisfied degree 3 equation with honest variables
     \end{itemize}
     \begin{claim}
-        The expected weight of unsatisfied clauses is at most $1/2*(d_{ch}+d_{co})+p_{ch}+r$
+        The expected weight of unsatisfied clauses is at most $p_c(d_{ch}+d_{co})+p_m p_{ch}+r$
     \end{claim}
     \begin{proof}
         Let's upper bound the total number of clauses by recapping our previous analysis. 
@@ -315,7 +315,7 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
         $w(T)\geq nk\cdot (30+2\cdot s(H)/3)+(d_{ch}+d_{co})/2+p_{ch}+r$
     \end{claim}
     \begin{proof}
-    The idea is separately bounding the weight of edges in $T^=$, $T^{\not=}$ and $T^3$ separately. 
+    The idea is separately bounding the cost of edges in $T^=$, $T^{\not=}$ and $T^3$ separately. 
     For this, once again, we will need to define a few quantities. 
     \begin{itemize}
         \item $t_{co}$: number of honest contacts assigned 1. 
@@ -329,13 +329,13 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
         This is just a separation of the sum, using $v_{i,j}=l_{i,j,u}+r_{i,j,u}+l_{i,M(j),n}+r_{i,M(j),n}$. The left part of the sum affects the contact variables and the right one the checker variables. 
         To bound the sum over all contacts, we note that, as we have proven before, a dishonest contact variable has $l_{i,j,b}+r_{i,j,b}$=1 and a honest variable assigned 1 has $l_{i,j,b}+r_{i,j,b}$=2. Then the first sum is $d_{co}+2t_{co}$.
         To bound the second sum, we see that, as per claim\ref{parity}, $v_{i,j}$ must be even. Then $v_i,j=2$ if both checkers are dishonest, $v_i,j=0$ if both checkers are honest and assigned 0 and $v_{i,j}=4$ if they are honest and assigned 1. 
-        Therefore, the left part of the sum is $2(\tau-1)nk+2*p^1_{ch}-2p^0_{ch}$. 
-        Using the fact that each edge was weight $p_c$ we obtain 
-        \[c(U^=)=p_c((\tau-1)nk+p^1_{ch}-p^0_{ch}+\frac{d_{co}}{2}+t_{co})\]
-        \item \textbf{$T^=\backslash U^=$}: For this, since $T$ is a valid spanning tour, the total weight of edges in $T^=\backslash U^=$ is at least the number of connected components in  $U^=\cup T^{\not =}\cup T^3$ (two edges connecting them, each of them of weight $p_c$). 
-        \[c(T^=\backslash U^=)\geq 2p_c (p^0_{ch}+u_{co})\]
+        Therefore, the left part of the sum is $2(\tau-1)nk+2p^1_{ch}-2p^0_{ch}$. 
+        Using the fact that each edge was cost $p_c$ we obtain 
+        \[c(U^=)=((\tau-1)nk+p^1_{ch}-p^0_{ch}+\frac{d_{co}}{2}+t_{co})\]
+        \item \textbf{$T^=\backslash U^=$}: For this, since $T$ is a valid spanning tour, the total cost of edges in $T^=\backslash U^=$ is at least the number of connected components in  $U^=\cup T^{\not =}\cup T^3$ (two edges connecting them, each of them of cost $p_c$). 
+        \[c(T^=\backslash U^=)\geq 2 (p^0_{ch}+u_{co})\]
         \item \textbf{$T^{\not =}$}: For any given pair of checker vertices connected, the tour crosses each forced edge at least once. Also, if either of the vertices is dishonest, $T$ being a tour implies one is crossed an additional time. 
-        Thus, $w(T^{\not=})\geq p_m (2*(\tau-1)nk+d_{ch}/2)$.
+        Thus, $w(T^{\not=})\geq 2p_c\Theta (2(\tau-1)nk+d_{ch}/2)$.
         \item \textbf{$T^3$}: For a given degree 3 clause $C$ involving contacts $(x_{i_1,j_1,b_1}, x_{i_2,j_2,b_2}, x_{i_3,j_3,b_3})$, we can denote $T_C$ as the edges in $T^3$ that appear in the gadget corresponding to that clause. 
         The main idea is extracting a valid tour $Q$ of the gadget graph $H$ and then use soundness properties of that graph to argue that $w(T_C)$ is large. 
         First, we will take all the edges from $T_C$ into $Q$. Still, $Q$ might not be a spanning tour.
@@ -352,8 +352,10 @@ Then there is a spanning tour in $G$ of total weight at most papapa.
         Here, $C=0$ if the clause isn't satisfied (following the two special edges if 1, 0 otherwise criterion). 
         Summing over all $2nk/3$ degree 3 clauses and using the fact that the sum of $k_2^H-u_{co}^{local}$ is the total number of honest contact vertices assigned 1, $t_{co}$.
         \[c(T^3)\geq 2nk/3 s(H)-2u_{co}-t_{co}+r\]
-        Then the lower bound \[c(T)= c(U^=)+c(T^=\backslash U^=)+c(T^{\not =})+c(T^3) \geq nk(2s(H)/3+(p_c+2p_m)(\tau-1))+p_c(p_{ch}+\frac{d_{co}}{2}+t_{co}+2u_{co})+p_m d_{ch}/2-2u_{co}-t_{co}+r\]
     \end{itemize}
+    Then the lower bound is
+        \[c(T)= c(U^=)+c(T^=\backslash U^=)+c(T^{\not =})+c(T^3) \geq nk(2/3s(H)+(2p_c\Theta +1)2 (\tau-1))+ \frac{d_{co}+2p_c\Theta d_{ch}}{2}+r\]
+
     \end{proof}
 
 
