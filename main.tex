@@ -145,8 +145,7 @@ This way, we produce an instance $J$ of $w$-MAX-E3-LIN-2 with the same gap as in
 The previous arguments applied to the problem $Q(\varepsilon, 2k)$ can be translated to this new setting, by reversing all variable from $V_x^n$ to theis opposite. 
 \subsection{Applying bi-wheel amplifiers}
 When we consider the existence of bi-wheel amplifiers $(W_{k,\tau},p)$ and add themto the framework we have just defined, we obtain the following theorem:
-\begin{theorem}[Hybrid-$(W_{k,\tau},p)$ inapproximability]
-    \label{origin}
+\begin{theorem}[Hybrid-$(W_{k,\tau},p)$ inapproximability]\label{origin}
     For every $\varepsilon \in (0, \frac{1}{4}),  b\in {0,1}$ there exist instances of $w$-MAX-E3-LIN-2, which we call hybrid-$(W_{k,\tau},p)$, with the following properties:
     \begin{itemize}
         \item Each variable of the system of equations hybrid-$(W_{k,\tau},p)$ occurs exactly 3 times.
@@ -227,10 +226,9 @@ Suppose we are given a Hybrid-$(W_{k,\tau},p)$ instance $I$, we will create an i
     \item For each equation of the form $x_{i,j,b}+x_{i',j',b'}=1$, we add to $G$ two parallel forced edges of cost $2p_c\Theta$ between $v_{i,j,b}$ and $v_{i',j',b'}$.
     \item For each equation of the form $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$, we add to $G$ a copy of the gadget $H$ corresponding to this equation, and we identify the contact vertices of $H$ with the vertices $v_{i_1,j_1,b_1}$, $v_{i_2,j_2,b_2}$ and $v_{i_3,j_3,b_3}$, and the central vertex of $H$ with $s$. The central vertex is shared between all such gadgets. 
 \end{itemize}
-\begin{theorem}[Completeness]
-\label{completeness}
+\begin{theorem}[Completeness]\label{completeness}
 Suppose there is an assignment $x= {(x_{i,j,b})}_{i,j,b}$ to the Hybrid-$(W_{k,\tau},p)$ instance that satisfies all degree $2$  clauses and violates at most $\Delta$ degree 3 clauses. 
-Then there is a spanning tour in $G$ of total cost at most $nk(2 (2\tau-1)p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(\Delta+2n)w(H)$.
+Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(\Delta+2n)w(H)$.
 \end{theorem}
 \begin{proof}
     We construct collections of edges $T^=, T^{\not =}$ AND $T^3$ from $G$ as follows:
@@ -265,10 +263,9 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (2\tau-1)p_c\Th
     By construction, all the forced edges are used at least once and none is used more than twice. As it is connecting and spanning, it is a valid tour. 
     Its total cost is 
     \[c(T^{\not =})+c(T^=)+c(T^3)\leq 2(\tau-1)p_c\Theta nk+ \tau nk+c(H)-nk+2w(H) (2n+\delta)=\]
-    \[=nk(2 (2\tau-1)p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(\Delta+2n)w(H)\]
+    \[=nk(2 (\tau-1)2p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(\Delta+2n)w(H)\]
 \end{proof}
-\begin{theorem}[Soundness]
-    \label{soundness}
+\begin{theorem}[Soundness]\label{soundness}
     Suppose there is a valid spanning tour $T$ of the $TSP_f$ instance $G$ with cost at most $ nk(2/3s(H)+(2p_c\Theta +1)2 (\tau-1))+\Delta$. Then, there is an assignment that leaves at most $\Delta$ clauses unsatisfied.
 \end{theorem}
 \begin{proof}
@@ -367,6 +364,6 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (2\tau-1)p_c\Th
     Let $H$ be an equation gadget such that $c(H)<\infty$. For any $\varepsilon>0$, it is NP-hard to approximate TSP$_f$ within x
 \end{theorem}
 \begin{proof}
-    Using theorems \ref{origin}, \ref{completeness} and \ref{soundness}, we deduce that it is NP-hard to distinguish between instances that admit a spanning tour of weight at most $nk(2 (\tau-1)p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(2/3\varepsilon nk +2n)w(H)$ from instances where all spanning tours have weight at least $nk(2/3s(H)+(2p_c\Theta +1)2 (\tau-1))+1/3nk-\varepsilon/2$.
+    Using theorem\ref{origin},theorem\ref{completeness} and theorem\ref{soundness}, we deduce that it is NP-hard to distinguish between instances that admit a spanning tour of weight at most $nk(2 (\tau-1)p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(2/3\varepsilon nk +2n)w(H)$ from instances where all spanning tours have weight at least $nk(2/3s(H)+(2p_c\Theta +1)2 (\tau-1))+1/3nk-\varepsilon/2$.
 \end{proof}
 \end{document}
