@@ -6,7 +6,7 @@
 
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
-\usepackage[letterpaper,top=1.5cm,bottom=1.5cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
+\usepackage[letterpaper,top=1.5cm,bottom=3cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{lmodern,amsthm,amsfonts,amssymb,anyfontsize,thm-restate, dsfont}
@@ -136,13 +136,13 @@ Let an instance $I$ of $Q_b(\varepsilon, 2k)$ be given by a set $\nu(I)$ of vari
 \begin{itemize}
 \item For each variable $x \in \nu(I)$, we create a copy of the amplifier $G$, denoted $G_x$.
         \begin{itemize}
-            \item Any edge $(u,u')$ in $G^u_x$ or $G^{u'}_x$ represents the equation $u + u' = 0$ with weight $p(u,u')$. We call this cycle equations.
-            \item Any edge between $v\in V^u_x$ and $v'\in V^n_x$ represents the equation $v + v' = 1$ with weight $p(v,v')$. We call this matching equations.
+            \item Any edge $(u,u')$ in $G^u_x$ or $G^{u'}_x$ represents the equation $u + u' = 0$ with weight $p(u,u')$. We call these cycle equations.
+            \item Any edge between $v\in V^u_x$ and $v'\in V^n_x$ represents the equation $v + v' = 1$ with weight $p(v,v')$. We call these matching equations.
         \end{itemize}
-\item The contact vertices of $G_x^u$ (and of $G_x^n$) represent the $k$ occurrences of unnegated (respectively, negated) variable $x$ in the equations of $I$. Every equation $x+y+z=b$ from $I$ also belongs to $J$ with weight 1.
+\item The contact vertices of $G_x^u$ (and of $G_x^n$) represent the $k$ occurrences of the unnegated (respectively, negated) variable $x$ in the equations of $I$. Every equation $x+y+z=b$ from $I$ also belongs to $J$ with weight 1.
 \end{itemize}
 This way, we produce an instance $J$ of $w$-MAX-E3-LIN-2 with the same gap as in the previous reduction. As before, any assignment to variables from $\nu(I)$ generate an assignment to variables of $J$ naturally, as the value of $x\in \nu(I)$ will be assigned to all the variables in $G^u_x$, and the value $1-x$ to all the variables in $G^n_x$. Once again, this assignment is called standard.
-The previous arguments applied to the problem $Q(\varepsilon, 2k)$ can be translated to this new setting, by reversing all variable from $V_x^n$ to theis opposite. 
+The previous arguments applied to the problem $Q(\varepsilon, 2k)$ can be translated to this new setting, by reversing every variable from $V_x^n$ to its opposite. 
 \subsection{Applying bi-wheel amplifiers}
 When we consider the existence of bi-wheel amplifiers $(W_{k,\tau},p)$ and add themto the framework we have just defined, we obtain the following theorem:
 \begin{theorem}[Hybrid-$(W_{k,\tau},p)$ inapproximability]\label{origin}
@@ -158,13 +158,14 @@ When we consider the existence of bi-wheel amplifiers $(W_{k,\tau},p)$ and add t
 \begin{proof}
 Let $\varepsilon \in (0, \frac{1}{4}),  b\in {0,1}$ and $k>0$ be an integer such that the problem $Q_b(\varepsilon, 2k)$ is NP-hard. Let an instance $I$ of $Q_b(\varepsilon, 2k)$ be given by a set $\nu(I)$ of variables, where $\nu:=|\nu(I)|$.
 Then $m:=|I|=\frac{2k\nu}{3}$, as each variable occurs exactly $2k$ times and each equation has 3 variables.
-For any ficed variable $x\in \nu(I)$, we create a copy of the bi-wheel amplifier $W_{k,\tau}$, denoted $W_x$. Each of these is a copy of $W_{k,\tau}$, with $2\tau k$ variables $Var(x)= {\{x_j^u, x_-j^n\}}_{j=1}^{\tau k}$.
+For any fixed variable $x\in \nu(I)$, we create a copy of the bi-wheel amplifier $W_{k,\tau}$, denoted $W_x$. Each of these is a copy of $W_{k,\tau}$, with $2\tau k$ variables $Var(x)= {\{x_j^u, x_-j^n\}}_{j=1}^{\tau k}$.
 Following the definition of a biwheel amplifier, each  $j^u$ is mapped to the variable $x^u_j$ and $j^n$ is mapped to $x^n_j$. 
 We will denote the set of cycle edges as $\mathcal{C}^u(W_x)$ and $\mathcal{C}^n(W_x)$, and the set of matching edges as $\mathcal{M}(W_x)$.
 \begin{itemize}
     \item For each matching edge ($j^u, j'^n)$ in $\mathcal{M}(W_x)$, we create an equation $x_j^u + x_{j'}^n = 1$ with weight $p_m$. There are $\frac{3}{2}(\tau-1)m$ such equations.
     \item For each cycle edge $(j^q, {(j+1)}^q)$ in $\mathcal{C}^q(W_x)$, we create an equation $x_j^q + x_{j+1}^q = 0$ with weight $p_c$. We have $2k\tau \nu= 3\tau m$ such equations.
 \end{itemize}
+
 Finally, we replace the $l$-th unnegated appearance of $x$ in $I$ with the variable $x^u_{c^u(l)}:=c_l^u$, and the $l$-th negated appearance of $x$ in $I$ with the variable $x^n_{c^n(l)}:=c_l^n$, for each $l\in \{1, \ldots, k\}$.
 This doesn't add equations to the system, but it just renames the variables in the equations of $I$ to the variables in the bi-wheel amplifiers.
 
@@ -177,15 +178,19 @@ It is at this point that we change the perspective, as this is the problem we wi
 We will start by labeling all the variables in the system of equations hybrid-$(W_{k,\tau},p)$. First of all, there are $2\tau k \nu$ variables in the system, as each variable in $\nu(I)$ is replaced by $2\tau k$ variables in the bi-wheel amplifier. 
 We label these variables as $x_{i,j,b}$, where $i \in \{1, \ldots, \nu\}$, $j \in \{1, \ldots, \tau k\}$ and $b\in \{u,n\}$.
 Each variable will participate in two distinct equations of the form $x+y=0$, which correspond to the cycle equations.
+
 Additionally, each checker will appear in a single equation of the form $x+y=1$ and every contact will appear in a single equation of the form $x+y+z=b$.
 Another way of expressing this notion is that for $S =\{\tau l : l\in \{1, \ldots, k\}\}$, and contacts are caracterized by $j\in S$, while checkers are caracterized by $j\notin S$.
 The weights of every equation are kept as in the definition of hybrid-$(W_{k,\tau},p)$: $p_c$ for cycle equations, $p_m$ for matching equations and 1 for the equations of the form $x+y+z=b$.
 
 In the second paper, they provide a different problem definition of $w$-MAX-E3-LIN-2. This definition has doubled the number of total clauses, and works with $nk$ instead of $m$. 
 This problem definition is equivalent, but the perspective on the inapproximability guarantee is slightly different. Setting $\varepsilon'=\frac{2}{3}\varepsilon$ and doubling the total amount of clauses:
+
 \begin{corollary}
     It is NP-hard to decide if equations of weight at least  $(\frac{2}{3}-\varepsilon') nk$ or at most $(1 - \varepsilon')nk$  can be satisfied by an optimal assignment.
 \end{corollary}
+We will use the previous definition, this is just a remark. 
+
 \section{Reduction to TSP$_f$ from Hybrid-$(W_{k,\tau},p)$}
 This reduction is defined by gadgets that determine how we map every equation to a graph in which we can define a valid tour. We call these \textbf{equation gadgets}.
 We have seen that there are three types of equations in our system. The most interesting ones are the equations of the form $x+y+z=b$, and they define degree 3 equation gadgets. 
@@ -218,7 +223,8 @@ To encapsulate this, we define the following:
     where the minimum is taken over all valid spanning tours $Q$.
 \end{itemize}
 \end{definition}
-Now, we can provide a reduction from the NP-hard problem hybrid-$(W_{k,\tau},p)$ to TSP$_f$. Defining $\Theta=\frac{1}{\max{1}{p_m}}$.
+Now, we can provide a reduction from the NP-hard problem hybrid-$(W_{k,\tau},p)$ to TSP$_f$. Through this section, we will use $\Theta=\frac{1}{\max{1}{p_m}}$. 
+\\
 Suppose we are given a Hybrid-$(W_{k,\tau},p)$ instance $I$, we will create an instance $G$ of TSP$_f$ as follows:
 \begin{itemize}
     \item We will create a single central vertex $s$, as well as a vertex $v_{i,j,b}$ for each corresponding variable $x_{i,j,b}$ in the system of equations.
@@ -226,6 +232,7 @@ Suppose we are given a Hybrid-$(W_{k,\tau},p)$ instance $I$, we will create an i
     \item For each equation of the form $x_{i,j,b}+x_{i',j',b'}=1$, we add to $G$ two parallel forced edges of cost $2p_c\Theta$ between $v_{i,j,b}$ and $v_{i',j',b'}$.
     \item For each equation of the form $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$, we add to $G$ a copy of the gadget $H$ corresponding to this equation, and we identify the contact vertices of $H$ with the vertices $v_{i_1,j_1,b_1}$, $v_{i_2,j_2,b_2}$ and $v_{i_3,j_3,b_3}$, and the central vertex of $H$ with $s$. The central vertex is shared between all such gadgets. 
 \end{itemize}
+
 \begin{theorem}[Completeness]\label{completeness}
 Suppose there is an assignment $x= {(x_{i,j,b})}_{i,j,b}$ to the Hybrid-$(W_{k,\tau},p)$ instance that satisfies all degree $2$  clauses and violates at most $\Delta$ degree 3 clauses. 
 Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(\Delta+2n)w(H)$.
@@ -239,12 +246,12 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Th
     \end{itemize}
     The total cost of $T^{\not =}$ is $4\cdot(\tau-1)p_c\Theta nk$, while the total cost of $T^=$ is $\tau nk$.
     For each degree 3 clause $x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=1$ which is satisfied, we consider an optimal valid tour $Q*= \arg \min\limits_{Q \in Q_z} c(Q)$. Then, we add the non-special edges of $Q^*$ to $T^3$. 
-    As an exception, in the case that $j_1,j_2$, or $j_3$= 0 we will add all special edges, to ensure connectivity. This has a total cost of 3 per wheel, so $3n$ in total. It will be negligible for high values of $k$.
-    This will ensure connectivity. If it is not satisfied, we add all a minimum cost tour, as well as all the special edges twice. 
+    As an exception, in the case that $j_1,j_2$, or $j_3$= 0 we will add all special edges twice, to keep even degrees. This has a total cost of 3 per wheel, so $3n$ in total. It will be negligible for high values of $k$.
+    This will ensure connectivity. If it is not satisfied, we add a minimum cost tour, as well as all the special edges twice. 
     The cost of edges added per degree 3 gadget is then bounded by: 
     \[c(H)-(x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3})+2w(H)(\mathds{1}_{0\in \{j_1,j_2,j_3\}}+\mathds{1}_{x_{i_1,j_1,b_1}+x_{i_2,j_2,b_2}+x_{i_3,j_3,b_3}=0})\]
     As an explanation of the last term, if the clause is satisfied, we add at most $c(H)$, while if it is not satisfied, we add at most $c(H)+2w(H)$, as we will need to add all special edges to ensure connectivity.
-    Summing over all degree three clauses, we obtain $w(T^3)\leq c(H)-nk+2w(H) (2n+\delta)$.
+    Summing over all degree three clauses, we obtain $w(T^3)\leq \frac{2}{3}c(H)nk+2w(H) (2n+\Delta)$.
     The sum over all assignments is exactly $nk$ because all the contact variables appear exactly one time per equation, half of them have value 0 and half of them have value 1 and there's $2nk$ of them. 
     The last term references the total number of unsatisfied clauses $(\Delta)$ and the fact that at most $2n$ clauses contain the first element of a wheel. 
     This subset of edges that we have just built keeps an even degree over all vertices, as the three ways in which we have added vertices do. 
@@ -260,13 +267,13 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Th
         
         The minimum cost tour over all the degree 3 gadgets covers all of them, so trivially this condition is also fulfilled.
     \end{proof}
-    By construction, all the forced edges are used at least once and none is used more than twice. As it is connecting and spanning, it is a valid tour. 
+    By construction, all the forced edges are used at least once and none is used more than twice. As it is connecting and spanning, it is a valid tour, and $E_f$ are \textbf{forced edges}. 
     Its total cost is 
-    \[c(T^{\not =})+c(T^=)+c(T^3)\leq 2(\tau-1)p_c\Theta nk+ \tau nk+c(H)-nk+2w(H) (2n+\delta)=\]
+    \[c(T^{\not =})+c(T^=)+c(T^3)\leq 2(\tau-1)p_c\Theta nk+ \tau nk+\frac{2}{3}c(H)nk+2w(H) (2n+\Delta)=\]
     \[=nk(2 (\tau-1)2p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(\Delta+2n)w(H)\]
 \end{proof}
 \begin{theorem}[Soundness]\label{soundness}
-    Suppose there is a valid spanning tour $T$ of the $TSP_f$ instance $G$ with cost at most $ nk(2/3s(H)+(2p_c\Theta +1)2 (\tau-1))+\Delta$. Then, there is an assignment that leaves at most $\Delta$ clauses unsatisfied.
+    Suppose there is a valid spanning tour $T$ of the $TSP_f$ instance $G$ with cost at most $ nk(\frac{2}{3}s(H)+(4p_c\Theta +1) (\tau-1))+\Delta$. Then, there is an assignment that leaves at most $\Delta$ clauses unsatisfied.
 \end{theorem}
 \begin{proof}
     Let us, as before, write $T= T^{\not =} +T^=+T^3$, where each of the components is, as before, the amount of edges in $T$ belonging to every part of the reduction. 
@@ -311,8 +318,9 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Th
         \end{itemize}
         After taking into account the weights of each equation, the result is proven. 
     \end{proof}
+    If the expected weight is smaller than that quantity, there is one assignment that also satisfies the bound while satisfying all the previous deterministic requirements. This is the assignment we will be looking for. 
     \begin{claim}
-        $w(T)\geq nk\cdot (30+2\cdot s(H)/3)+(d_{ch}+d_{co})/2+p_{ch}+r$
+        $c(T)\geq  nk(\frac{2}{3}s(H)+(4p_c\Theta +1) (\tau-1))+ \frac{d_{co}+2p_c\Theta d_{ch}}{2}+r+p_{ch}$
     \end{claim}
     \begin{proof}
     The idea is separately bounding the cost of edges in $T^=$, $T^{\not=}$ and $T^3$ separately. 
@@ -344,17 +352,17 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Th
         Observe that the degree of all auxiliary vertices in $T_C$ is the same as in $Q$, and they are even. Since we have made sure tu preserve even degree when adding edges, all vertices have even degree. 
         Also, we have ensured connectivity. As $Q$ uses each edge at most twice, forced edges are used at least once and is a tour, it is a valid tour. 
         Then, by definition of soundness:
-        \[c(Q)\geq s(H)+ k_1^H(Q)/2 + \mathds{1}_{ {k_1^H(Q) = 0} \cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}} }} \]
+        \[c(Q)\geq s(H)+ k_1^H(Q)/2 + \mathds{1}_{ {k_1^H(Q) = 0}} \cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}} } \]
         Subtracting the contribution of the edges we added to $Q$, we obtain: 
-        \[c(T_C)=c(Q)-k_1^H(Q)-k_2^H(Q)\geq -u\geq s(H)-k_2^H(Q)+\mathds{1}_{ {k_1^H(Q) = 0} \cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}}}}\]
+        \[c(T_C)=c(Q)-k_1^H(Q)-k_2^H(Q)\geq -u\geq s(H)-k_2^H(Q)+\mathds{1}_{ {k_1^H(Q) = 0}}\cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}}}\]
         Note that if $u_{co}^{local}=0$, the indicator exactly indicates whether the clause is satisfied. 
-        Then $ s(H)-k_2^H(Q)+\mathds{1}_{ {k_1^H(Q) = 0} \cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}}}}\geq s(H)-u_{co}^{local}-k_2^H+C$. 
+        Then $ s(H)-k_2^H(Q)+\mathds{1}_{ {k_1^H(Q) = 0}}\cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}}}\geq s(H)-u_{co}^{local}-k_2^H+C$. 
         Here, $C=0$ if the clause isn't satisfied (following the two special edges if 1, 0 otherwise criterion). 
         Summing over all $2nk/3$ degree 3 clauses and using the fact that the sum of $k_2^H-u_{co}^{local}$ is the total number of honest contact vertices assigned 1, $t_{co}$.
         \[c(T^3)\geq 2nk/3 s(H)-2u_{co}-t_{co}+r\]
     \end{itemize}
     Then the lower bound is
-        \[c(T)= c(T^=)+c(T^{\not =})+c(T^3) \geq nk(2/3s(H)+(2p_c\Theta +1)2 (\tau-1))+ \frac{d_{co}+2p_c\Theta d_{ch}}{2}+r+p_{ch}\]
+        \[c(T)= c(T^=)+c(T^{\not =})+c(T^3) \geq nk(\frac{2}{3}s(H)+(4p_c\Theta +1) (\tau-1))+ \frac{d_{co}+2p_c\Theta d_{ch}}{2}+r+p_{ch}\]
 
     \end{proof}
     Supposing $p_m\leq 1$ (that is equivalent to $p_m=1$), then as $p_c\geq 1/2$, $\frac{d_{co}+2p_c\Theta d_{ch}}{2}+r+p_{ch}\leq p_c*(d_{co}+d_{ch})+r+p_{ch}=\Delta$. 
@@ -364,6 +372,14 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Th
     Let $H$ be an equation gadget such that $c(H)<\infty$. For any $\varepsilon>0$, it is NP-hard to approximate TSP$_f$ within x
 \end{theorem}
 \begin{proof}
-    Using theorem\ref{origin},theorem\ref{completeness} and theorem\ref{soundness}, we deduce that it is NP-hard to distinguish between instances that admit a spanning tour of weight at most $nk(2 (\tau-1)p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(2/3\varepsilon nk +2n)w(H)$ from instances where all spanning tours have weight at least $nk(2/3s(H)+(2p_c\Theta +1)2 (\tau-1))+1/3nk-\varepsilon/2$.
+    Using theorem\ref{origin}, theorem\ref{completeness} and theorem\ref{soundness}, 
+    we deduce that it is NP-hard to distinguish between instances that admit a spanning tour of weight 
+    at most $nk(2 (\tau-1)p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(\frac{2}{3}\varepsilon nk +2n)w(H)$ from instances where all spanning tours have weight at least $nk(\frac{2}{3}s(H)+(2p_c\Theta +1)2 (\tau-1))+\frac{1}{3}nk-\frac{2}{3}\varepsilon$.
+    Them, it is NP -hard to approximate TSP$_f$ within
+    \[ \frac{nk(\frac{2}{3}s(H)+(4p_c\Theta +1)(\tau-1))+\frac{1}{3}nk-\frac{2}{3}\varepsilon}{nk(4 (\tau-1)p_c\Theta+\tau+\frac{2}{3}c(H)-1)+ 2(\frac{2}{3}\varepsilon nk +2n)w(H)}\]
+    Which, for a sufficiently small $\varepsilon$ and sufficiently large $k$, is at least:
+    \[ \frac{\frac{2}{3}s(H)+(4p_c\Theta +1)(\tau-1)+\frac{1}{3}}{\frac{2}{3}c(H)+(4p_c\Theta+1)(\tau-1)}\]
+
+
 \end{proof}
 \end{document}
