@@ -9,6 +9,7 @@
 \usepackage[letterpaper,top=1.5cm,bottom=3cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{tikz}
 \usepackage{lmodern,amsthm,amsfonts,amssymb,anyfontsize,thm-restate, dsfont}
 
 \newtheorem{innercustomthm}{Theorem}
@@ -146,7 +147,7 @@ The previous arguments applied to the problem $Q(\varepsilon, 2k)$ can be transl
 \subsection{Applying bi-wheel amplifiers}
 When we consider the existence of bi-wheel amplifiers $(W_{k,\tau},p)$ and add themto the framework we have just defined, we obtain the following theorem:
 \begin{theorem}[Hybrid-$(W_{k,\tau},p)$ inapproximability]\label{origin}
-    For every $\varepsilon \in (0, \frac{1}{4}),  b\in {0,1}$ there exist instances of $w$-MAX-E3-LIN-2, which we call hybrid-$(W_{k,\tau},p)$, with the following properties:
+    For every $\varepsilon \in (0, \frac{1}{4}),  b\in \{0,1\}$ there exist instances of $w$-MAX-E3-LIN-2, which we call hybrid-$(W_{k,\tau},p)$, with the following properties:
     \begin{itemize}
         \item Each variable of the system of equations hybrid-$(W_{k,\tau},p)$ occurs exactly 3 times.
         \item $m$ equations are of the form $x+y+z=b$ with weight 1.
@@ -156,7 +157,7 @@ When we consider the existence of bi-wheel amplifiers $(W_{k,\tau},p)$ and add t
     It is NP-hard to decide if equations of weight at least  $(1-\varepsilon) m$ or at most $(\frac{1}{2} - \varepsilon)m$  can be satisfied by an optimal assignment. 
 \end{theorem}
 \begin{proof}
-Let $\varepsilon \in (0, \frac{1}{4}),  b\in {0,1}$ and $k>0$ be an integer such that the problem $Q_b(\varepsilon, 2k)$ is NP-hard. Let an instance $I$ of $Q_b(\varepsilon, 2k)$ be given by a set $\nu(I)$ of variables, where $\nu:=|\nu(I)|$.
+Let $\varepsilon \in (0, \frac{1}{4}),  b\in \{0,1\}$ and $k>0$ be an integer such that the problem $Q_b(\varepsilon, 2k)$ is NP-hard. Let an instance $I$ of $Q_b(\varepsilon, 2k)$ be given by a set $\nu(I)$ of variables, where $\nu:=|\nu(I)|$.
 Then $m:=|I|=\frac{2k\nu}{3}$, as each variable occurs exactly $2k$ times and each equation has 3 variables.
 For any fixed variable $x\in \nu(I)$, we create a copy of the bi-wheel amplifier $W_{k,\tau}$, denoted $W_x$. Each of these is a copy of $W_{k,\tau}$, with $2\tau k$ variables $Var(x)= {\{x_j^u, x_-j^n\}}_{j=1}^{\tau k}$.
 Following the definition of a biwheel amplifier, each  $j^u$ is mapped to the variable $x^u_j$ and $j^n$ is mapped to $x^n_j$. 
@@ -223,7 +224,7 @@ To encapsulate this, we define the following:
     where the minimum is taken over all valid spanning tours $Q$.
 \end{itemize}
 \end{definition}
-Now, we can provide a reduction from the NP-hard problem hybrid-$(W_{k,\tau},p)$ to TSP$_f$. Through this section, we will use $\Theta=\frac{1}{\max{1}{p_m}}$. 
+Now, we can provide a reduction from the NP-hard problem hybrid-$(W_{k,\tau},p)$ to TSP$_f$. Through this section, we will use $\Theta=\frac{1}{\max\{{1}{p_m}}\}$. 
 \\
 Suppose we are given a Hybrid-$(W_{k,\tau},p)$ instance $I$, we will create an instance $G$ of TSP$_f$ as follows:
 \begin{itemize}
@@ -260,7 +261,7 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Th
     \begin{proof}
          We will argue that all the wheels are connected to the central vertex $s$. 
         In the biwheel structure, all the checkers are connected to one checker in the other wheel via two forced edges. 
-        Also, if a variable is set to a given value $b\in{0,1}$, the corresponding wheel is connected via the unforced edges, connecting all the checkers and half the contacts.
+        Also, if a variable is set to a given value $b\in\{0,1\}$, the corresponding wheel is connected via the unforced edges, connecting all the checkers and half the contacts.
         These are connected to the central vertex via the special degree 3 tour in the first vertex per wheel.
         Additionally, all the satisfied equations have at least one variable set to 1, so all the contacts assigned 0 that appear in satisfied equations are connected, and the unsatisfied equations are connected. 
         What remains to be seen is that the auxiliary vertices are connected.
@@ -292,7 +293,7 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Th
         Let's assume, w.l.o.g., that $x_{i,j,u}$ is honest and $x_{i,j,n}$ is dishonest. Then,  $\deg(x_{i,j,u})-\deg(x_{i,j,n})$  is odd, which means one of the two has odd degree originally. This contradicts $T$ being a tour. 
     \end{proof}
     \begin{itemize}
-    \item If both edges connected to an inequality clause are dishonest, we assign a random value $b\in{0,1}$ to $x_{i,j,u}$ and the opposite value to $x_{i,j,n}$. 
+    \item If both edges connected to an inequality clause are dishonest, we assign a random value $b\in\{0,1\}$ to $x_{i,j,u}$ and the opposite value to $x_{i,j,n}$. 
     \item For each degree 3 clause containing at least one dishonest variable, we assign a value to said variable that ensures the clause is satisfied. 
     \end{itemize}
     Once we have defined the value each variable takes, we define some quantities:
@@ -347,17 +348,17 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Th
         \item \textbf{$T^3$}: For a given degree 3 clause $C$ involving contacts $(x_{i_1,j_1,b_1}, x_{i_2,j_2,b_2}, x_{i_3,j_3,b_3})$, we can denote $T_C$ as the edges in $T^3$ that appear in the gadget corresponding to that clause. 
         The main idea is extracting a valid tour $Q$ of the gadget graph $H$ and then use soundness properties of that graph to argue that $w(T_C)$ is large. 
         First, we will take all the edges from $T_C$ into $Q$. Still, $Q$ might not be a spanning tour.
-        To solve this, we add $l_{i_l,j_l,b_l}+r_{i_l,j_l,b_l}$ copies of the speciel edge $(l,4)$ for edge $l\in \{1,2,3\}$, to ensure even degree and increase connectivity. For eah connected component in $Q$ not connected to the central vertex, we will add two copies of the special edge $l,4$ for each such component.
+        To solve this, we add $l_{i_l,j_l,b_l}+r_{i_l,j_l,b_l}$ copies of the special edge $(l,4)$ for edge $l\in \{1,2,3\}$, to ensure even degree and increase connectivity. For each connected component in $Q$ not connected to the central vertex, we will add two copies of the special edge $(l,4)$ for each such component.
         We will denote $u_{co}^{local}$ the number of such components.
-        Observe that the degree of all auxiliary vertices in $T_C$ is the same as in $Q$, and they are even. Since we have made sure tu preserve even degree when adding edges, all vertices have even degree. 
+        Observe that the degree of all auxiliary vertices in $T_C$ is the same as in $Q$, and they are even. Since we have made sure to preserve even degree when adding edges, all vertices have even degree. 
         Also, we have ensured connectivity. As $Q$ uses each edge at most twice, forced edges are used at least once and is a tour, it is a valid tour. 
-        Then, by definition of soundness:
+        Then, just by the definition of soundness, we have:
         \[c(Q)\geq s(H)+ k_1^H(Q)/2 + \mathds{1}_{ {k_1^H(Q) = 0}} \cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}} } \]
         Subtracting the contribution of the edges we added to $Q$, we obtain: 
-        \[c(T_C)=c(Q)-k_1^H(Q)-k_2^H(Q)\geq -u\geq s(H)-k_2^H(Q)+\mathds{1}_{ {k_1^H(Q) = 0}}\cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}}}\]
-        Note that if $u_{co}^{local}=0$, the indicator exactly indicates whether the clause is satisfied. 
+        \[c(T_C)=c(Q)-k_1^H(Q)/2-k_2^H(Q)\geq s(H)-k_2^H(Q)+\mathds{1}_{ {k_1^H(Q) = 0}}\cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}}}\]
+        Here, the coeficients of the different $k$ indices are according to the weights. Note that if $u_{co}^{local}=0$, the indicator is 1 if and only if the clause is satisfied. 
         Then $ s(H)-k_2^H(Q)+\mathds{1}_{ {k_1^H(Q) = 0}}\cdot \mathds{1}_{ {k_2^H(Q) \text{ is even}}}\geq s(H)-u_{co}^{local}-k_2^H+C$. 
-        Here, $C=0$ if the clause isn't satisfied (following the two special edges if 1, 0 otherwise criterion). 
+        This means that $C=0$ if the clause isn't satisfied (following the two special edges if 1, 0 otherwise criterion). 
         Summing over all $2nk/3$ degree 3 clauses and using the fact that the sum of $k_2^H-u_{co}^{local}$ is the total number of honest contact vertices assigned 1, $t_{co}$.
         \[c(T^3)\geq 2nk/3 s(H)-2u_{co}-t_{co}+r\]
     \end{itemize}
@@ -382,4 +383,84 @@ Then there is a spanning tour in $G$ of total cost at most $nk(2 (\tau-1)2p_c\Th
 
 
 \end{proof}
+\section{Discussion on the gadget requirements}
+For the previous proof, we used gadgets with the following properties: 
+\begin{itemize}
+    \item They must have at least 4 vertices, 3 for the contacts and 1 for the central vertex, and it might as well have some auxiliary vertices.
+    \item In order to represent assigments with some fidelity, after removing the central vertex the graph must remain connected. 
+    \item Their soundness and completeness must coincide, to guarantee the inapproximability gap. 
+\end{itemize}
+One such graph that might be used is the following: 
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=1.5]
+        % --- Define Coordinates for Vertices ---
+        % Top Vertex
+        \coordinate (T) at (2, 3.5);
+        
+        % Middle Row Vertices
+        \coordinate (M1) at (0.5, 2.5);
+        \coordinate (M2) at (2, 2.5);
+        \coordinate (M3) at (3.5, 2.5);
+        
+        % Bottom Row Vertices
+        \coordinate (B1) at (0.5, 1);
+        \coordinate (B2) at (2, 1);
+        \coordinate (B3) at (3.5, 1);
+        \coordinate (B4) at (4.7, 1);
+
+        % --- Draw Edges ---
+        
+        % Green Edges
+        \draw[green!80!black, thick] (T) -- (M1);
+        \draw[green!80!black, thick] (T) -- (M2);
+        \draw[green!80!black, thick] (T) -- (M3);
+
+        % Red Edges
+        % Parallel pair 1 (M1 to B1)
+        \draw[red, thick] ([xshift=-1.5pt]M1) -- ([xshift=-1.5pt]B1);
+        \draw[red, thick] ([xshift=1.5pt]M1) -- ([xshift=1.5pt]B1);
+        
+        % Parallel pair 2 (M2 to B2)
+        \draw[red, thick] ([xshift=-1.5pt]M2) -- ([xshift=-1.5pt]B2);
+        \draw[red, thick] ([xshift=1.5pt]M2) -- ([xshift=1.5pt]B2);
+        
+        % Right vertical and diagonal red edges
+        \draw[red, thick] (M3) -- (B3);
+        \draw[red, thick] (M3) -- (B4);
+
+        % Black Edges
+        \draw[black, thick] (B1) -- (B2);
+        \draw[black, thick] (B2) -- (B3);
+        \draw[black, thick] (B3) -- (B4);
+        
+        % Long curved bottom black edge
+        \draw[black, thick] (B1) .. controls (2, -0.2) and (3.5, -0.2) .. (B4);
+
+        % --- Draw Vertices (as tiny structural markers) ---
+        \foreach \pt in {T, M1, M2, M3, B1, B2, B3, B4} {
+            \fill[black] (\pt) circle (0.6pt);
+        }
+
+    \end{tikzpicture}
+  
+    \caption{Gadget candidate.}
+\end{figure}
+Here, the red edges are forced and of cost $k$, the green edges are the special edges of cost 1/2 and the black edges are unforced edges of cost $s$.
+To minimize constants, we will look at soundness and completeness for candidate tours. 
+For completeness, two cases arise: 
+\begin{itemize}
+    \item if only one variable is assigned 1, then we have to take 6 forced edges, 3 unforced edges and 2 special edges, for a total cost of $6k+3s+1$.
+    \item if the three variables are assigned 1, then we have to take 6 forced edges, 1 unforced edge and 6 special edges, for a total cost of $6k+s+3$. The unforced edge can be substituted for 2 forced edges alternatively.
+\end{itemize}
+The completeness factor of the gadget is then $\max\{6k+3s+1, \min\{6k+s+3, 8k+3\}\}$.
+the soundness factor is a bit more complex to compute, as the indicators lead to a bigger case distinction. As a baseline, the 6 forced edges are taken and the special edges can be taken at most twice.
+\begin{itemize}
+        \item the cases in which one special edge is taken twice and none are taken twice or all the special edges are taken twice, soundness coincides with completeness.
+        \item if two special edges are taken once and the other is taken twice, the cost of a minimum tour is $8k+2s+1$. 
+        \item if two special edges are taken twice, the cost of a minimum tour is exactly $6k+3s+1$, coinciding with completeness.
+        \item if two edges are taken once and the other is not taken, the minimum soundness of a tour is $8k+2s$. 
+\end{itemize}
+As we are working with values of $k$ and $s$ between 0 and 1, completness is then $\max\{6k+3s+1, 6k+s+3\}$ and soundness is $\max\{6k+3s+1, 8k+2s\}$.
+Then, all we have to do is compute values $k$ and $s$ between 0 and 1 which minimize $\max\{6k+3s+1, \min\{6k+s+3, 8k+3\}\}=8k+2s$. But $8k+3$ is always larger than $8k+2s$, so we just need to find values $k$ and $s$ that satisfy $\max\{6k+3s+1, 6k+s+3\}=8k+2s$.
 \end{document}
